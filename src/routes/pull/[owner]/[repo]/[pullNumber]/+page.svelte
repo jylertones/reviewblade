@@ -14,8 +14,8 @@
 <h1>{data.pullRequest.title}</h1>
 
 <a href={data.pullRequest._links.html.href} target="_blank" rel="noopener">
-	<Github /> View on GitHub</a
->
+	<Github /> View on GitHub
+</a>
 
 <h2>Description</h2>
 
