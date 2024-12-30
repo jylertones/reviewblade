@@ -16,7 +16,7 @@ export async function getCompare({ owner, repo, base, head }: GetCompareParams) 
 
 	const response = await request({
 		url: getCompareApiUrl,
-		method: 'GET'
+		method: 'GET',
 	});
 
 	return (await response.json()) as CompareResponse;

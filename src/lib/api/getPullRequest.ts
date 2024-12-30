@@ -15,7 +15,7 @@ export async function getPullRequest({ owner, repo, pullNumber }: GetPullRequest
 
 	const response = await request({
 		url: getPullRequestApiUrl,
-		method: 'GET'
+		method: 'GET',
 	});
 
 	return (await response.json()) as PullRequestResponse;

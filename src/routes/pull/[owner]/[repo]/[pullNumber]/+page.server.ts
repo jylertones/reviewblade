@@ -12,20 +12,20 @@ export const load: PageServerLoad = async ({ params }) => {
 		getPullRequest({
 			owner: owner,
 			repo: repo,
-			pullNumber: Number(pullNumber)
+			pullNumber: Number(pullNumber),
 		}),
 		getPullReviews({
 			owner,
 			repo,
-			pull_number: Number(pullNumber)
-		})
+			pull_number: Number(pullNumber),
+		}),
 	]);
 
 	const pullRequestDiff = getCompare({
 		owner,
 		repo,
 		base: pullRequest.base.ref,
-		head: pullRequest.head.ref
+		head: pullRequest.head.ref,
 	});
 
 	const body = (await compile(pullRequest.body)).code;
@@ -36,6 +36,6 @@ export const load: PageServerLoad = async ({ params }) => {
 		pullRequest,
 		pullRequestReviews,
 		pullRequestDiff,
-		body
+		body,
 	};
 };

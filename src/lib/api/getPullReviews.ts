@@ -7,13 +7,13 @@ export type ReviewResponse =
 	Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews']['response'];
 
 export async function getPullReviews(
-	parameters: ReviewParameters
+	parameters: ReviewParameters,
 ): Promise<ReviewResponse['data']> {
 	const getReviewRequestApiUrl = `https://api.github.com/repos/${parameters.owner}/${parameters.repo}/pulls/${parameters.pull_number}/reviews`;
 
 	const response = await request({
 		url: getReviewRequestApiUrl,
-		method: 'GET'
+		method: 'GET',
 	});
 
 	return (await response.json()) as ReviewResponse['data'];

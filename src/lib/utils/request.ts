@@ -13,8 +13,8 @@ export async function request(params: RequestParams) {
 		body: params.body ? JSON.stringify(params.body) : undefined,
 		headers: {
 			authorization: `Bearer ${GITHUB_TOKEN}`,
-			...params.headers
-		}
+			...params.headers,
+		},
 	});
 
 	if (!response.ok) {

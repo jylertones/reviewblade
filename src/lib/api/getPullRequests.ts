@@ -9,7 +9,7 @@ export async function getPullRequests(parameters: PullRequestParameters) {
 
 	const response = await request({
 		url: getPullRequestApiUrl,
-		method: 'GET'
+		method: 'GET',
 	});
 
 	return (await response.json()).items as PullRequestResponse;

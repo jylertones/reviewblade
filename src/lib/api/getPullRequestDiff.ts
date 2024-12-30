@@ -13,8 +13,8 @@ export async function getPullRequestDiff({ owner, repo, pullNumber }: GetPullReq
 		url: getPullRequestDiffApiUrl,
 		method: 'GET',
 		headers: {
-			Accept: 'application/vnd.github.diff'
-		}
+			Accept: 'application/vnd.github.diff',
+		},
 	});
 
 	return await response.text();

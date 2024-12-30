@@ -18,7 +18,7 @@
 		['waiting']: { label: 'Awaiting review', icon: Badge },
 		['changes_requested']: { label: 'Changes requested', icon: BadgeAlert },
 		['commented']: { label: 'Commented', icon: BadgeInfo },
-		['approved']: { label: 'Approved', icon: BadgeCheck }
+		['approved']: { label: 'Approved', icon: BadgeCheck },
 	};
 
 	const { pullRequest }: PullRequestListItemProps = $props();
