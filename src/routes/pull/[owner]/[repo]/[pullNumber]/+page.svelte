@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { Github } from 'lucide-svelte';
 	import Prism from 'prismjs';
 	import 'prismjs/themes/prism.css';
 
@@ -11,6 +12,10 @@
 </svelte:head>
 
 <h1>{data.pullRequest.title}</h1>
+
+<a href={data.pullRequest._links.html.href} target="_blank" rel="noopener"
+	><Github /> View on GitHub</a
+>
 
 <h2>Description</h2>
 
