@@ -96,6 +96,17 @@
 			--font-body-size-2: 0.875rem;
 
 			--border-color: var(--color-primary-70);
+			--border-radius: 0.25rem;
+
+			--button-default-background-color: var(--color-primary-50);
+			--button-default-border-color: var(--color-primary-40);
+			--button-default-color: var(--color-primary-20);
+			--button-default-hover-background-color: var(--color-primary-60);
+
+			--button-primary-background-color: var(--color-maroon-50);
+			--button-primary-border-color: var(--color-maroon-60);
+			--button-primary-color: var(--color-maroon-10);
+			--button-primary-hover-background-color: var(--color-maroon-60);
 		}
 
 		@supports (font-variation-settings: normal) {

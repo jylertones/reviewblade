@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Button from '$lib/components/Button.svelte';
 	import type { PageData } from './$types';
 	import { Github } from 'lucide-svelte';
 	import Prism from 'prismjs';
@@ -13,9 +14,9 @@
 
 <h1>{data.pullRequest.title}</h1>
 
-<a href={data.pullRequest._links.html.href} target="_blank" rel="noopener">
+<Button variant="primary" href={data.pullRequest._links.html.href} target="_blank" rel="noopener">
 	<Github /> View on GitHub
-</a>
+</Button>
 
 <h2>Description</h2>
 
