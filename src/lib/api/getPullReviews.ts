@@ -14,6 +14,9 @@ export async function getPullReviews(
 	const response = await request({
 		url: getReviewRequestApiUrl,
 		method: 'GET',
+		headers: {
+			Accept: 'application/vnd.github.full+json',
+		},
 	});
 
 	return (await response.json()) as ReviewResponse['data'];

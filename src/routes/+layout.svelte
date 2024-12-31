@@ -138,6 +138,10 @@
 			padding: 0;
 		}
 
+		section + section {
+			margin-block-start: 1rem;
+		}
+
 		h1,
 		h2,
 		h3,

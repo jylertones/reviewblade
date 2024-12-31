@@ -2,23 +2,12 @@
 	import type { PullRequestResponse } from '$lib/api/getPullRequests';
 	import { getPullReviews } from '$lib/api/getPullReviews';
 	import { getRepoPathFromPr } from '$lib/utils/getRepoPathFromPr';
-	import { Badge, BadgeAlert, BadgeCheck, BadgeInfo } from 'lucide-svelte';
 	import { formatDistance } from 'date-fns';
+	import type { PullRequestApprovalState } from '$lib/constants/reviews';
+	import ReviewStateIcon from './ReviewStateIcon.svelte';
 
 	type PullRequestListItemProps = {
 		pullRequest: PullRequestResponse[0];
-	};
-
-	type PullRequestApprovalState = 'approved' | 'waiting' | 'changes_requested' | 'commented';
-
-	const mapApprovalStateToDisplay: Record<
-		PullRequestApprovalState,
-		{ label: string; icon: typeof Badge }
-	> = {
-		['waiting']: { label: 'Awaiting review', icon: Badge },
-		['changes_requested']: { label: 'Changes requested', icon: BadgeAlert },
-		['commented']: { label: 'Commented', icon: BadgeInfo },
-		['approved']: { label: 'Approved', icon: BadgeCheck },
 	};
 
 	const { pullRequest }: PullRequestListItemProps = $props();
@@ -57,8 +46,7 @@
 
 <li class="list-item">
 	{#if !isPullReviewsLoading && !isPullReviewsError}
-		{@const Icon = mapApprovalStateToDisplay[pullReviewState].icon}
-		<Icon class="status-icon" data-status={pullReviewState} />
+		<ReviewStateIcon state={pullReviewState} />
 	{:else}
 		<span class="status-icon"></span>
 	{/if}
@@ -105,21 +93,5 @@
 	.second-line {
 		color: var(--text-secondary-color);
 		font-size: var(--font-body-size-2);
-	}
-
-	:global {
-		.status-icon {
-			color: var(--text-secondary-color);
-			block-size: var(--icon-size-large);
-			inline-size: var(--icon-size-large);
-		}
-
-		.status-icon[data-status='changes-requested'] {
-			color: var(--color-warning);
-		}
-
-		.status-icon[data-status='approved'] {
-			color: var(--color-success);
-		}
 	}
 </style>
