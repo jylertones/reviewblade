@@ -1,4 +1,3 @@
-import { compile } from 'mdsvex';
 import { getPullRequest } from '$lib/api/getPullRequest';
 import { getPullReviews } from '$lib/api/getPullReviews';
 import type { PageServerLoad } from './$types';
@@ -28,7 +27,7 @@ export const load: PageServerLoad = async ({ params }) => {
 		head: pullRequest.head.ref,
 	});
 
-	const body = (await compile(pullRequest.body)).code;
+	// const body = (await compile(pullRequest.body)).code;
 
 	// console.log(body);
 
@@ -36,6 +35,6 @@ export const load: PageServerLoad = async ({ params }) => {
 		pullRequest,
 		pullRequestReviews,
 		pullRequestDiff,
-		body,
+		body: pullRequest.body_html,
 	};
 };

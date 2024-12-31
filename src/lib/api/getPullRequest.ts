@@ -16,7 +16,12 @@ export async function getPullRequest({ owner, repo, pullNumber }: GetPullRequest
 	const response = await request({
 		url: getPullRequestApiUrl,
 		method: 'GET',
+		headers: {
+			Accept: 'application/vnd.github.full+json',
+		},
 	});
 
-	return (await response.json()) as PullRequestResponse;
+	return (await response.json()) as PullRequestResponse & {
+		body_html: string;
+	};
 }

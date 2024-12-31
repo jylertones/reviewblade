@@ -38,7 +38,6 @@
 		"date-fns": "^4.1.0",
 		"invariant": "^2.2.4",
 		"lucide-svelte": "^0.469.0",
-		"mdsvex": "^0.12.3",
 		"prismjs": "^1.29.0",
 		"svelte-prism": "^1.1.6"
 	}
