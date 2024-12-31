@@ -21,7 +21,7 @@ In the future, I'd like to be able to do all of the basic functionality of worki
 
 ## Developing
 
-This project uses `pnpm` and SvelteKit. To get up and running with a development server, you will first need to put a GitHub API token in the `creds.ts` file. Without that, all pages will fail to retrieve data.
+This project uses `pnpm` and SvelteKit. To get up and running with a development server, you will first need to put a GitHub API token in the `.env` file under a variable titled `PUBLIC_GITHUB_API_TOKEN`. Without that, all pages will fail to retrieve data.
 
 ```bash
 pnpm install

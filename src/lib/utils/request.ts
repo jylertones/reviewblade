@@ -1,4 +1,4 @@
-import { GITHUB_TOKEN } from '$lib/constants/creds';
+import { PUBLIC_GITHUB_API_TOKEN } from '$env/static/public';
 
 export type RequestParams = {
 	url: string;
@@ -12,7 +12,7 @@ export async function request(params: RequestParams) {
 		method: params.method,
 		body: params.body ? JSON.stringify(params.body) : undefined,
 		headers: {
-			authorization: `Bearer ${GITHUB_TOKEN}`,
+			authorization: `Bearer ${PUBLIC_GITHUB_API_TOKEN}`,
 			...params.headers,
 		},
 	});
