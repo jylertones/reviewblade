@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { GitBranchPlus } from 'lucide-svelte';
+	import { Sword } from 'lucide-svelte';
 </script>
 
 <div class="nav-wrapper">
 	<nav>
 		<a href="/">
-			<GitBranchPlus />
+			<Sword /> ReviewBlade
 		</a>
 		<a href="/">Home</a>
 		<a href="/pulls">Pull Requests</a>
@@ -19,11 +19,17 @@
 
 	nav {
 		display: flex;
-		gap: 0.5rem;
+		gap: 1rem;
 		align-items: center;
 		padding-block: 0.5rem;
 
 		max-inline-size: var(--layout-width);
 		margin: 0 auto;
+	}
+
+	a {
+		display: inline-flex;
+		gap: 0.25rem;
+		align-items: center;
 	}
 </style>
