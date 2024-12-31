@@ -2,6 +2,8 @@
 	import Button from '$lib/components/Button.svelte';
 	import Flex from '$lib/components/Flex.svelte';
 	import ReviewStateIcon from '$lib/components/ReviewStateIcon.svelte';
+	import { getAwaitingReviews } from '$lib/utils/getAwaitingReviews';
+	import { getDisplayableReviews } from '$lib/utils/getDisplayableReviews';
 	import { reviewStateToTyped } from '$lib/utils/reviewStateToTyped';
 	import type { PageData } from './$types';
 	import { Github } from 'lucide-svelte';
@@ -10,12 +12,11 @@
 
 	let { data }: { data: PageData } = $props();
 
-	const displayableReviews = data.pullRequestReviews
-		.filter(
-			(review) => review.body_html || ['APPROVED', 'CHANGES_REQUESTED'].includes(review.state),
-		)
-		.sort((r1, r2) => (r1.submitted_at ?? 0) - (r2.submitted_at ?? 0));
-	console.log({ reviews: data.pullRequestReviews });
+	const reviews = [
+		...getAwaitingReviews(data.pullRequest),
+		...getDisplayableReviews(data.pullRequestReviews),
+	];
+	console.log({ reviews });
 </script>
 
 <svelte:head>
@@ -31,13 +32,13 @@
 <section>
 	<h2>Approvals</h2>
 
-	{#each displayableReviews as review}
+	{#each reviews as review}
 		<Flex gap={4}>
 			<ReviewStateIcon state={reviewStateToTyped(review.state)} />
-			<span>{review.user?.login}</span>
+			<span>{review.name}</span>
 		</Flex>
 	{/each}
-	{#if displayableReviews.length === 0}
+	{#if reviews.length === 0}
 		None
 	{/if}
 </section>
