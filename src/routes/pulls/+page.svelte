@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Flex from '$lib/components/Flex.svelte';
 	import PullRequestList from '$lib/components/PullRequestList.svelte';
 
 	import type { PageData } from './$types';
@@ -12,8 +13,16 @@
 
 <h1>Pull requests</h1>
 
-<h2>My pull requests ({data.myPullRequests.length})</h2>
-<PullRequestList pullRequests={data.myPullRequests} isError={data.isError} />
+<Flex gap={16} direction="column">
+	<PullRequestList
+		title={`My pull requests (${data.myPullRequests.length})`}
+		pullRequests={data.myPullRequests}
+		isError={data.isError}
+	/>
 
-<h2>My reviews ({data.myReviewPullRequests.length})</h2>
-<PullRequestList pullRequests={data.myReviewPullRequests} isError={data.isError} />
+	<PullRequestList
+		title={`My reviews (${data.myReviewPullRequests.length})`}
+		pullRequests={data.myReviewPullRequests}
+		isError={data.isError}
+	/>
+</Flex>

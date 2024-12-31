@@ -59,7 +59,10 @@
 	{#if !isPullReviewsLoading && !isPullReviewsError}
 		{@const Icon = mapApprovalStateToDisplay[pullReviewState].icon}
 		<Icon class="status-icon" data-status={pullReviewState} />
+	{:else}
+		<span class="status-icon"></span>
 	{/if}
+
 	<div class="stack">
 		<div class="title">
 			<a href={`/pull/${owner}/${repo}/${pullRequest.number}`}>{pullRequest.title}</a>
@@ -76,7 +79,7 @@
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.5rem;
+		padding: 0.5rem 1rem;
 
 		&:hover {
 			background-color: var(--background-color-secondary);
@@ -107,6 +110,8 @@
 	:global {
 		.status-icon {
 			color: var(--text-secondary-color);
+			block-size: var(--icon-size-large);
+			inline-size: var(--icon-size-large);
 		}
 
 		.status-icon[data-status='changes-requested'] {

@@ -5,9 +5,9 @@
 	let { children } = $props();
 </script>
 
-<div class="layout-wrapper">
-	<Header />
+<Header />
 
+<div class="layout-wrapper">
 	<main>
 		{@render children()}
 	</main>
@@ -16,7 +16,7 @@
 <style>
 	.layout-wrapper {
 		margin: 0 auto;
-		max-width: 60rem;
+		max-inline-size: var(--layout-width);
 	}
 
 	:global {
@@ -25,6 +25,8 @@
 			font-feature-settings:
 				'liga' 1,
 				'calt' 1; /* fix for Chrome */
+
+			--layout-width: 60rem;
 
 			--color-primary-90: #000c12;
 			--color-primary-80: #001924;
@@ -78,6 +80,7 @@
 
 			--background-color: var(--color-primary-70);
 			--background-color-secondary: var(--color-primary-80);
+			--background-color-tertiary: var(--color-primary-60);
 			--text-primary-color: var(--color-primary-10);
 			--text-secondary-color: var(--color-primary-30);
 
@@ -85,18 +88,25 @@
 			--color-warning: var(--color-yellow-50);
 
 			--base-size: 16px;
-			--font-heading-size-1: 2rem;
-			--font-heading-size-2: 1.5rem;
-			--font-heading-size-3: 1.25rem;
+			--font-heading-size-1: 1.5rem;
+			--font-heading-line-height-1: 2;
+			--font-heading-size-2: 1.25rem;
+			--font-heading-line-height-2: 2;
+			--font-heading-size-3: 1.125rem;
+			--font-heading-line-height-3: 1.25;
 			--font-heading-size-4: 1rem;
+			--font-heading-line-height-4: 1.5;
 			--font-heading-size-5: 0.875rem;
+			--font-heading-line-height-5: 1.25;
 			--font-heading-size-6: 0.75rem;
+			--font-heading-line-height-6: 1.333333333;
 
 			--font-body-size-1: 1rem;
 			--font-body-size-2: 0.875rem;
 
-			--border-color: var(--color-primary-70);
-			--border-radius: 0.25rem;
+			--border-width: 2px;
+			--border-color: var(--color-primary-50);
+			--border-radius: 0.5rem;
 
 			--button-default-background-color: var(--color-primary-50);
 			--button-default-border-color: var(--color-primary-40);
@@ -107,6 +117,9 @@
 			--button-primary-border-color: var(--color-maroon-60);
 			--button-primary-color: var(--color-maroon-10);
 			--button-primary-hover-background-color: var(--color-maroon-60);
+
+			--icon-size-large: var(--font-heading-size-2);
+			--icon-size-default: var(--font-body-size-1);
 		}
 
 		@supports (font-variation-settings: normal) {
@@ -121,30 +134,47 @@
 
 			font-family: Inter, Helvetica, sans-serif;
 			font-size: var(--base-size);
+			margin: 0;
+			padding: 0;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			margin-block: 0;
 		}
 
 		h1 {
 			font-size: var(--font-heading-size-1);
+			line-height: var(--font-heading-line-height-1);
 		}
 
 		h2 {
 			font-size: var(--font-heading-size-2);
+			line-height: var(--font-heading-line-height-2);
 		}
 
 		h3 {
 			font-size: var(--font-heading-size-3);
+			line-height: var(--font-heading-line-height-3);
 		}
 
 		h4 {
 			font-size: var(--font-heading-size-4);
+			line-height: var(--font-heading-line-height-4);
 		}
 
 		h5 {
 			font-size: var(--font-heading-size-5);
+			line-height: var(--font-heading-line-height-5);
 		}
 
 		h6 {
 			font-size: var(--font-heading-size-6);
+			line-height: var(--font-heading-line-height-6);
 		}
 
 		a,
