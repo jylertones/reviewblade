@@ -5,7 +5,32 @@
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
+
+	function handleKeyUp(event: KeyboardEvent) {
+		const focusedItem = document.activeElement;
+		const allFocusableListItems = document.querySelectorAll('[data-keyboard-focusable]');
+		const focusedItemIndex = focusedItem
+			? Array.from(allFocusableListItems).indexOf(focusedItem)
+			: -1;
+
+		if (event.key === 'ArrowUp' || event.key === 'k') {
+			if (focusedItemIndex === -1) return;
+
+			allFocusableListItems[Math.max(0, focusedItemIndex - 1)].focus();
+
+			return;
+		}
+
+		if (event.key === 'ArrowDown' || event.key === 'j') {
+			allFocusableListItems[
+				Math.min(allFocusableListItems.length - 1, focusedItemIndex + 1)
+			].focus();
+			return;
+		}
+	}
 </script>
+
+<svelte:window onkeyup={handleKeyUp} />
 
 <svelte:head>
 	<title>Pull requests</title>

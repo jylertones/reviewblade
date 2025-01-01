@@ -53,7 +53,9 @@
 
 	<div class="stack">
 		<div class="title">
-			<a href={`/pull/${owner}/${repo}/${pullRequest.number}`}>{pullRequest.title}</a>
+			<a href={`/pull/${owner}/${repo}/${pullRequest.number}`} data-keyboard-focusable
+				>{pullRequest.title}</a
+			>
 		</div>
 		<div class="second-line">
 			Created {formatDistance(new Date(pullRequest.created_at), new Date(), { addSuffix: true })} by

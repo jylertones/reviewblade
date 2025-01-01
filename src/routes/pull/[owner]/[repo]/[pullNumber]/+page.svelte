@@ -16,7 +16,6 @@
 		...getAwaitingReviews(data.pullRequest),
 		...getDisplayableReviews(data.pullRequestReviews),
 	];
-	console.log({ reviews });
 </script>
 
 <svelte:head>
