@@ -2,7 +2,7 @@
 	import type { Snippet } from 'svelte';
 
 	type ButtonProps = {
-		variant?: 'primary' | 'default';
+		variant?: 'primary' | 'default' | 'icon';
 		onClick?: () => void;
 		href?: string;
 		children: Snippet<[]>;
@@ -44,9 +44,12 @@
 	}
 
 	button:hover,
-	a:hover {
+	a:hover,
+	button[data-variant='icon']:hover,
+	a[data-variant='icon']:hover {
 		text-decoration: none;
 		background-color: var(--button-default-hover-background-color);
+		cursor: pointer;
 	}
 
 	button[data-variant='primary'],
@@ -61,5 +64,16 @@
 	button[data-variant='primary']:hover,
 	a[data-variant='primary']:hover {
 		background-color: var(--button-primary-hover-background-color);
+	}
+
+	button[data-variant='icon'],
+	a[data-variant='icon'] {
+		inline-size: 2rem;
+		block-size: 2rem;
+		padding: 0.5rem;
+		justify-content: center;
+		border: 0;
+		background-color: transparent;
+		color: var(--button-default-color);
 	}
 </style>

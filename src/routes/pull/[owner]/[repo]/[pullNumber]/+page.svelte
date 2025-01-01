@@ -6,7 +6,7 @@
 	import { getDisplayableReviews } from '$lib/utils/getDisplayableReviews';
 	import { reviewStateToTyped } from '$lib/utils/reviewStateToTyped';
 	import type { PageData } from './$types';
-	import { ArrowRight, Github } from 'lucide-svelte';
+	import { ArrowRight, Copy, Github } from 'lucide-svelte';
 	import Prism from 'prismjs';
 	import 'prismjs/themes/prism.css';
 
@@ -16,6 +16,10 @@
 		...getAwaitingReviews(data.pullRequest),
 		...getDisplayableReviews(data.pullRequestReviews),
 	];
+
+	function handleCopy() {
+		navigator.clipboard.writeText(data.pullRequest.head.ref);
+	}
 </script>
 
 <svelte:head>
@@ -27,7 +31,10 @@
 
 	<Flex direction="row" justify="space-between">
 		<Flex direction="row" align="center" gap={4}>
-			<pre class="branch-name">{data.pullRequest.head.ref}</pre>
+			<Flex direction="row" align="center" gap={2}>
+				<pre class="branch-name">{data.pullRequest.head.ref}</pre>
+				<Button onClick={handleCopy} variant="icon"><Copy /></Button>
+			</Flex>
 			<ArrowRight />
 			<pre class="branch-name">{data.pullRequest.base.ref}</pre>
 		</Flex>
@@ -84,6 +91,7 @@
 <style>
 	.branch-name {
 		font-size: var(--font-body-size-2);
+		color: var(--text-secondary-color);
 	}
 
 	.file {
