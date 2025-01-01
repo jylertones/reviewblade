@@ -6,7 +6,7 @@
 	import { getDisplayableReviews } from '$lib/utils/getDisplayableReviews';
 	import { reviewStateToTyped } from '$lib/utils/reviewStateToTyped';
 	import type { PageData } from './$types';
-	import { Github } from 'lucide-svelte';
+	import { ArrowRight, Github } from 'lucide-svelte';
 	import Prism from 'prismjs';
 	import 'prismjs/themes/prism.css';
 
@@ -22,11 +22,22 @@
 	<title>{data.pullRequest.title}</title>
 </svelte:head>
 
-<h1>{data.pullRequest.title}</h1>
+<section>
+	<h1>{data.pullRequest.title}</h1>
 
-<Button variant="primary" href={data.pullRequest._links.html.href} target="_blank" rel="noopener">
-	<Github /> View on GitHub
-</Button>
+	<Flex direction="row" justify="space-between">
+		<Flex direction="row" align="center" gap={4}>
+			<pre class="branch-name">{data.pullRequest.head.ref}</pre>
+			<ArrowRight />
+			<pre class="branch-name">{data.pullRequest.base.ref}</pre>
+		</Flex>
+		<div>
+			<Button href={data.pullRequest._links.html.href} target="_blank" rel="noopener">
+				<Github /> View on GitHub
+			</Button>
+		</div>
+	</Flex>
+</section>
 
 <section>
 	<h2>Approvals</h2>
@@ -71,6 +82,10 @@
 </section>
 
 <style>
+	.branch-name {
+		font-size: var(--font-body-size-2);
+	}
+
 	.file {
 		inline-size: 100%;
 		padding: 1rem;

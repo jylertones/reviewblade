@@ -6,12 +6,28 @@
 		align?: 'center' | 'start' | 'end';
 		direction?: 'row' | 'column';
 		gap?: 2 | 4 | 8 | 16 | 24 | 32;
+		justify?:
+			| 'start'
+			| 'end'
+			| 'center'
+			| 'space-between'
+			| 'space-around'
+			| 'space-evenly'
+			| 'normal';
 	};
 
-	const { children, gap, direction = 'row', align = 'center' }: FlexProps = $props();
+	const {
+		children,
+		gap,
+		direction = 'row',
+		align = 'center',
+		justify = 'normal',
+	}: FlexProps = $props();
 </script>
 
-<div class={['flex', `gap-${gap}`, `align-${align}`, `direction-${direction}`]}>
+<div
+	class={['flex', `gap-${gap}`, `align-${align}`, `direction-${direction}`, `justify-${justify}`]}
+>
 	{@render children()}
 </div>
 
@@ -63,5 +79,29 @@
 	.direction-column {
 		flex-direction: column;
 		justify-content: stretch;
+	}
+
+	.justify-start {
+		justify-content: start;
+	}
+
+	.justify-end {
+		justify-content: end;
+	}
+
+	.justify-center {
+		justify-content: center;
+	}
+
+	.justify-space-between {
+		justify-content: space-between;
+	}
+
+	.justify-space-around {
+		justify-content: space-around;
+	}
+
+	.justify-space-evenly {
+		justify-content: space-evenly;
 	}
 </style>

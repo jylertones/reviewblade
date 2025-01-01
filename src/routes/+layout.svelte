@@ -138,6 +138,10 @@
 			padding: 0;
 		}
 
+		main {
+			padding-block-start: 1rem;
+		}
+
 		section + section {
 			margin-block-start: 1rem;
 		}
