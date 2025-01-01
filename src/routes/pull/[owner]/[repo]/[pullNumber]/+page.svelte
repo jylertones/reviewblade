@@ -20,6 +20,8 @@
 	function handleCopy() {
 		navigator.clipboard.writeText(data.pullRequest.head.ref);
 	}
+
+	console.log({ reviews, prReviews: data.pullRequestReviews });
 </script>
 
 <svelte:head>
@@ -51,7 +53,7 @@
 
 	{#each reviews as review}
 		<Flex gap={4}>
-			<ReviewStateIcon state={reviewStateToTyped(review.state)} />
+			<ReviewStateIcon state={review.state} />
 			<span>{review.name}</span>
 		</Flex>
 	{/each}
@@ -63,8 +65,8 @@
 <section>
 	<h2>Description</h2>
 
-	<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 	<div class="description-body">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html data.body}
 	</div>
 </section>

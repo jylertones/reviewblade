@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { PullRequestApprovalState } from '$lib/constants/reviews';
-	import { Badge, BadgeAlert, BadgeCheck, BadgeInfo } from 'lucide-svelte';
+	import { Badge, BadgeAlert, BadgeCheck, BadgeHelp, BadgeInfo } from 'lucide-svelte';
 
 	const mapApprovalStateToDisplay: Record<
 		PullRequestApprovalState,
 		{ label: string; icon: typeof Badge }
 	> = {
-		['waiting']: { label: 'Awaiting review', icon: Badge },
+		['waiting']: { label: 'Awaiting review', icon: BadgeHelp },
 		['changes_requested']: { label: 'Changes requested', icon: BadgeAlert },
 		['commented']: { label: 'Commented', icon: BadgeInfo },
 		['approved']: { label: 'Approved', icon: BadgeCheck },
