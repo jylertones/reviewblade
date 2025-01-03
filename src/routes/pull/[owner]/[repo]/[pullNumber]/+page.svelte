@@ -1,10 +1,10 @@
 <script lang="ts">
 	import Button from '$lib/components/Button.svelte';
+	import CheckRunsList from '$lib/components/CheckRunsList.svelte';
 	import Flex from '$lib/components/Flex.svelte';
 	import ReviewStateIcon from '$lib/components/ReviewStateIcon.svelte';
 	import { getAwaitingReviews } from '$lib/utils/getAwaitingReviews';
 	import { getDisplayableReviews } from '$lib/utils/getDisplayableReviews';
-	import { reviewStateToTyped } from '$lib/utils/reviewStateToTyped';
 	import type { PageData } from './$types';
 	import { ArrowRight, Copy, Github } from 'lucide-svelte';
 	import Prism from 'prismjs';
@@ -60,6 +60,17 @@
 	{#if reviews.length === 0}
 		None
 	{/if}
+</section>
+
+<section>
+	<h2>Checks</h2>
+	{#await data.checkRuns}
+		Loading checks...
+	{:then checks}
+		<CheckRunsList checkRuns={checks.check_runs} />
+	{:catch error}
+		Error loading checks: {error.message}
+	{/await}
 </section>
 
 <section>

@@ -2,6 +2,7 @@ import { getPullRequest } from '$lib/api/getPullRequest';
 import { getPullReviews } from '$lib/api/getPullReviews';
 import type { PageServerLoad } from './$types';
 import { getCompare } from '$lib/api/getCompare';
+import { getCheckRuns } from '$lib/api/getCheckRuns';
 
 export const load: PageServerLoad = async ({ params }) => {
 	// TODO: probably need to validate these
@@ -27,14 +28,17 @@ export const load: PageServerLoad = async ({ params }) => {
 		head: pullRequest.head.ref,
 	});
 
-	// const body = (await compile(pullRequest.body)).code;
-
-	// console.log(body);
+	const checkRuns = getCheckRuns({
+		owner,
+		repo,
+		head: pullRequest.head.ref,
+	});
 
 	return {
 		pullRequest,
 		pullRequestReviews,
 		pullRequestDiff,
+		checkRuns,
 		body: pullRequest.body_html,
 	};
 };
