@@ -63,6 +63,15 @@
 </section>
 
 <section>
+	<h2>Description</h2>
+
+	<div class="description-body">
+		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+		{@html data.body}
+	</div>
+</section>
+
+<section>
 	<h2>Checks</h2>
 	{#await data.checkRuns}
 		Loading checks...
@@ -71,15 +80,6 @@
 	{:catch error}
 		Error loading checks: {error.message}
 	{/await}
-</section>
-
-<section>
-	<h2>Description</h2>
-
-	<div class="description-body">
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html data.body}
-	</div>
 </section>
 
 <section>
