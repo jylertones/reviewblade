@@ -84,7 +84,7 @@
 	{#each sortedRuns as check}
 		<li>
 			<a href={check.details_url} target="_blank">
-				<Flex gap={4}
+				<Flex gap={8}
 					><CheckRunIcon status={check.status} conclusion={check.conclusion} /><span
 						>{check.name}</span
 					></Flex
