@@ -6,11 +6,14 @@
 		onClick?: () => void;
 		href?: string;
 		children: Snippet<[]>;
-		target?: HTMLAnchorElement['target'];
+
+		// Other props spread over the button
+		'aria-controls'?: string;
 		rel?: HTMLAnchorElement['rel'];
+		target?: HTMLAnchorElement['target'];
 	};
 
-	const { variant = 'default', onClick, href, children, target, rel }: ButtonProps = $props();
+	const { variant = 'default', onClick, href, children, ...other }: ButtonProps = $props();
 	const tag = href ? 'a' : 'button';
 </script>
 
@@ -19,9 +22,8 @@
 	role={tag === 'a' ? 'link' : 'button'}
 	onclick={onClick}
 	{href}
-	{target}
-	{rel}
 	data-variant={variant}
+	{...other}
 >
 	{@render children()}
 </svelte:element>

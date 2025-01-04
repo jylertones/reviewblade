@@ -92,7 +92,7 @@
 			--font-heading-line-height-1: 2;
 			--font-heading-size-2: 1.25rem;
 			--font-heading-line-height-2: 2;
-			--font-heading-size-3: 1.125rem;
+			--font-heading-size-3: 1.25rem;
 			--font-heading-line-height-3: 1.25;
 			--font-heading-size-4: 1rem;
 			--font-heading-line-height-4: 1.5;
@@ -167,6 +167,7 @@
 
 		h3 {
 			font-size: var(--font-heading-size-3);
+			font-weight: normal;
 			line-height: var(--font-heading-line-height-3);
 		}
 

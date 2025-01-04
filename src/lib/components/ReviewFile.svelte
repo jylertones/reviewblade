@@ -16,11 +16,12 @@
 	const { file }: ReviewFileProps = $props();
 	let expanded = $state(['added', 'modified'].includes(file.status));
 	const ExpandedIcon = $derived(expanded ? ChevronDown : ChevronRight);
+	const expandButtonId = `expand-file-${file.filename.replace(/[\\/\\.]/g, '-')}`;
 </script>
 
 <div class="file">
 	<Flex justify="space-between"
-		><h3>{file.filename}</h3>
+		>{file.filename}
 		<Flex gap={4}>
 			<div>
 				{#if file.status === 'added'}added
@@ -30,6 +31,7 @@
 			</div>
 			<Button
 				variant="icon"
+				aria-controls={expandButtonId}
 				onClick={() => {
 					expanded = !expanded;
 				}}><ExpandedIcon /></Button
@@ -37,12 +39,14 @@
 		</Flex></Flex
 	>
 
-	{#if file.patch && expanded}
-		<code style="white-space: pre-wrap;">
-			<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-			{@html Prism.highlight(file.patch, Prism.languages.javascript, 'javascript')}
-		</code>
-	{/if}
+	<div id={expandButtonId}>
+		{#if file.patch && expanded}
+			<code style="white-space: pre-wrap;">
+				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
+				{@html Prism.highlight(file.patch, Prism.languages.javascript, 'javascript')}
+			</code>
+		{/if}
+	</div>
 </div>
 
 <style>
