@@ -2,12 +2,12 @@
 	import Button from '$lib/components/Button.svelte';
 	import CheckRunsList from '$lib/components/CheckRunsList.svelte';
 	import Flex from '$lib/components/Flex.svelte';
+	import ReviewFile from '$lib/components/ReviewFile.svelte';
 	import ReviewStateIcon from '$lib/components/ReviewStateIcon.svelte';
 	import { getAwaitingReviews } from '$lib/utils/getAwaitingReviews';
 	import { getDisplayableReviews } from '$lib/utils/getDisplayableReviews';
 	import type { PageData } from './$types';
 	import { ArrowRight, Copy, Github } from 'lucide-svelte';
-	import Prism from 'prismjs';
 	import 'prismjs/themes/prism.css';
 
 	let { data }: { data: PageData } = $props();
@@ -89,13 +89,7 @@
 	{:then diff}
 		<Flex direction="column" gap={16}>
 			{#each diff.files ?? [] as file}
-				<div class="file">
-					<h3>{file.filename}</h3>
-					<code style="white-space: pre-wrap;">
-						<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-						{@html Prism.highlight(file.patch!, Prism.languages.javascript, 'javascript')}
-					</code>
-				</div>
+				<ReviewFile {file} />
 			{/each}
 		</Flex>
 	{:catch error}
