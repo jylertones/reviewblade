@@ -16,7 +16,8 @@
 <style>
 	.layout-wrapper {
 		margin: 0 auto;
-		max-inline-size: var(--layout-width);
+		inline-size: var(--layout-width);
+		max-inline-size: 90vw;
 	}
 
 	:global {

@@ -3,18 +3,26 @@
 </script>
 
 <div class="nav-wrapper">
-	<nav>
-		<a href="/">
-			<Sword /> ReviewBlade
-		</a>
-		<a href="/">Home</a>
-		<a href="/pulls">Pull Requests</a>
-	</nav>
+	<div class="layout-wrapper">
+		<nav>
+			<a href="/">
+				<Sword /> ReviewBlade
+			</a>
+			<a href="/">Home</a>
+			<a href="/pulls">Pull Requests</a>
+		</nav>
+	</div>
 </div>
 
 <style>
 	.nav-wrapper {
 		background-color: var(--background-color-secondary);
+	}
+
+	.layout-wrapper {
+		margin: 0 auto;
+		inline-size: var(--layout-width);
+		max-inline-size: 90vw;
 	}
 
 	nav {
