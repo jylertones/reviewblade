@@ -87,6 +87,7 @@
 
 			--color-success: var(--color-green-50);
 			--color-warning: var(--color-yellow-50);
+			--color-error: var(--color-peach-50);
 
 			--base-size: 16px;
 			--font-heading-size-1: 1.5rem;
