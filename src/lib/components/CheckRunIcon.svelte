@@ -70,10 +70,10 @@
 			inline-size: var(--icon-size-large);
 		}
 
-		.status-icon[data-conclusion='failed'],
+		.status-icon[data-conclusion='failure'],
 		.status-icon[data-conclusion='action_required'] .status-icon[data-conclusion='cancelled'],
 		.status-icon[data-conclusion='timed_out'] {
-			color: var(--color-warning);
+			color: var(--color-error);
 		}
 
 		.status-icon[data-conclusion='success'] {
