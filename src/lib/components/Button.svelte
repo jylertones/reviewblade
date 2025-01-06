@@ -2,6 +2,7 @@
 	import type { Snippet } from 'svelte';
 
 	type ButtonProps = {
+		type?: 'button' | 'submit';
 		variant?: 'primary' | 'default' | 'icon';
 		onClick?: () => void;
 		href?: string;
@@ -13,7 +14,14 @@
 		target?: HTMLAnchorElement['target'];
 	};
 
-	const { variant = 'default', onClick, href, children, ...other }: ButtonProps = $props();
+	const {
+		variant = 'default',
+		type = 'button',
+		onClick,
+		href,
+		children,
+		...other
+	}: ButtonProps = $props();
 	const tag = href ? 'a' : 'button';
 </script>
 
@@ -22,6 +30,7 @@
 	role={tag === 'a' ? 'link' : 'button'}
 	onclick={onClick}
 	{href}
+	{type}
 	data-variant={variant}
 	{...other}
 >
