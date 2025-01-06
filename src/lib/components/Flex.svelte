@@ -20,7 +20,7 @@
 		children,
 		gap,
 		direction = 'row',
-		align = 'center',
+		align = direction === 'row' ? 'center' : 'start',
 		justify = 'normal',
 	}: FlexProps = $props();
 </script>
