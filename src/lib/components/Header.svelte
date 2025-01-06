@@ -10,6 +10,7 @@
 			</a>
 			<a href="/">Home</a>
 			<a href="/pulls">Pull Requests</a>
+			<a href="/settings" class="right">Settings</a>
 		</nav>
 	</div>
 </div>
@@ -30,6 +31,7 @@
 		gap: 1rem;
 		align-items: center;
 		padding-block: 0.5rem;
+		justify-items: space-between;
 
 		max-inline-size: var(--layout-width);
 		margin: 0 auto;
@@ -39,5 +41,10 @@
 		display: inline-flex;
 		gap: 0.25rem;
 		align-items: center;
+	}
+
+	.right {
+		flex: 2;
+		justify-content: right;
 	}
 </style>
