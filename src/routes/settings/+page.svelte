@@ -12,6 +12,11 @@
 		event.preventDefault();
 		setApiKey(gitHubToken);
 	}
+
+	function handleClearData() {
+		localStorage.clear();
+		window.location.href = '/';
+	}
 </script>
 
 <svelte:head>
@@ -33,5 +38,15 @@
 		</Flex>
 
 		<Button type="submit" variant="primary">Save</Button>
+
+		<Flex direction="column" gap={8}>
+			<h2>Delete data</h2>
+			<Text
+				>If you want to delete your data, you may do so through your browser by clearing site data
+				for this site, or you may click the button below.</Text
+			>
+
+			<Button onClick={handleClearData}>Delete data</Button>
+		</Flex>
 	</Flex>
 </form>

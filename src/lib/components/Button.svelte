@@ -4,7 +4,7 @@
 	type ButtonProps = {
 		type?: 'button' | 'submit';
 		variant?: 'primary' | 'default' | 'icon';
-		onClick?: () => void;
+		onClick?: (event: SubmitEvent) => void;
 		href?: string;
 		children: Snippet<[]>;
 

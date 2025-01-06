@@ -1,5 +1,8 @@
 <script lang="ts">
+	import { hasApiKey } from '$lib/utils/apiKeyUtils';
 	import { Sword } from 'lucide-svelte';
+
+	const needsSetup = !hasApiKey();
 </script>
 
 <div class="nav-wrapper">
@@ -8,9 +11,13 @@
 			<a href="/">
 				<Sword /> ReviewBlade
 			</a>
-			<a href="/">Home</a>
-			<a href="/pulls">Pull Requests</a>
-			<a href="/settings" class="right">Settings</a>
+			{#if needsSetup}
+				<a href="/" class="right">Setup</a>
+			{:else}
+				<a href="/">Home</a>
+				<a href="/pulls">Pull Requests</a>
+				<a href="/settings" class="right">Settings</a>
+			{/if}
 		</nav>
 	</div>
 </div>
