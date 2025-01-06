@@ -1,10 +1,10 @@
 import { getPullRequest } from '$lib/api/getPullRequest';
 import { getPullReviews } from '$lib/api/getPullReviews';
-import type { PageServerLoad } from './$types';
+import type { PageLoad } from './$types';
 import { getCompare } from '$lib/api/getCompare';
 import { getCheckRuns } from '$lib/api/getCheckRuns';
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageLoad = async ({ params }) => {
 	// TODO: probably need to validate these
 	const { owner, repo, pullNumber } = params;
 	console.log({ owner, repo, pullNumber });

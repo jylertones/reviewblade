@@ -1,4 +1,4 @@
-import { PUBLIC_GITHUB_API_TOKEN } from '$env/static/public';
+import { getApiKey } from './apiKeyUtils';
 
 export type RequestParams = {
 	url: string;
@@ -8,11 +8,13 @@ export type RequestParams = {
 };
 
 export async function request(params: RequestParams) {
+	const apiKey = getApiKey();
+
 	const response = await fetch(params.url, {
 		method: params.method,
 		body: params.body ? JSON.stringify(params.body) : undefined,
 		headers: {
-			authorization: `Bearer ${PUBLIC_GITHUB_API_TOKEN}`,
+			authorization: `Bearer ${apiKey}`,
 			...params.headers,
 		},
 	});
