@@ -137,6 +137,7 @@
 			font-family: Inter, Helvetica, sans-serif;
 			font-size: var(--base-size);
 			margin: 0;
+			margin-block-end: 2rem;
 			padding: 0;
 		}
 
