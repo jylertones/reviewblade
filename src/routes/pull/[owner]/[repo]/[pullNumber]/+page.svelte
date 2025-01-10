@@ -8,7 +8,6 @@
 	import { getDisplayableReviews } from '$lib/utils/getDisplayableReviews';
 	import type { PageData } from './$types';
 	import { ArrowRight, Copy, Github } from 'lucide-svelte';
-	import 'prismjs/themes/prism.css';
 
 	let { data }: { data: PageData } = $props();
 

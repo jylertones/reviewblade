@@ -1,6 +1,5 @@
 <script>
 	import Header from '$lib/components/Header.svelte';
-	import 'prismjs';
 
 	let { children } = $props();
 </script>
