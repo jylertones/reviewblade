@@ -1,8 +1,9 @@
 <script lang="ts">
-	import Prism from 'prismjs';
+	import { codeToHtml, type StringLiteralUnion } from 'shiki';
 	import Flex from './Flex.svelte';
 	import Button from './Button.svelte';
 	import { ChevronDown, ChevronRight } from 'lucide-svelte';
+	import type { BundledLanguage } from 'shiki/bundle/web';
 
 	type ReviewFileProps = {
 		file: {
@@ -17,6 +18,42 @@
 	let expanded = $state(['added', 'modified'].includes(file.status));
 	const ExpandedIcon = $derived(expanded ? ChevronDown : ChevronRight);
 	const expandButtonId = `expand-file-${file.filename.replace(/[\\/\\.]/g, '-')}`;
+
+	let patchElement: HTMLElement | null = $state(null);
+
+	$effect(() => {
+		if (patchElement && file.patch && expanded) {
+			const fileExtension = file.filename.split('.').pop();
+			codeToHtml(file.patch, {
+				theme: 'tokyo-night',
+				lang: fileExtension as StringLiteralUnion<BundledLanguage, string>,
+				transformers: [
+					{
+						line(node) {
+							let firstChild = node.children[0];
+
+							while (firstChild.type === 'element') {
+								firstChild = firstChild.children[0];
+							}
+
+							const firstChar = firstChild.value.substring(0, 1);
+							if (firstChar === '+') {
+								firstChild.value = firstChild.value.replace(/^\+/, ' ');
+								this.addClassToHast(node, 'line-added');
+							} else if (firstChar === '-') {
+								firstChild.value = firstChild.value.replace(/^-/, ' ');
+								this.addClassToHast(node, 'line-removed');
+							}
+						},
+					},
+				],
+			}).then((html) => {
+				if (patchElement) {
+					patchElement.innerHTML = html;
+				}
+			});
+		}
+	});
 </script>
 
 <div class="file">
@@ -41,10 +78,7 @@
 
 	<div id={expandButtonId}>
 		{#if file.patch && expanded}
-			<code style="white-space: pre-wrap;">
-				<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-				{@html Prism.highlight(file.patch, Prism.languages.javascript, 'javascript')}
-			</code>
+			<code bind:this={patchElement}>{file.patch}</code>
 		{/if}
 	</div>
 </div>
@@ -56,5 +90,15 @@
 		background-color: var(--background-color-secondary);
 		border: var(--border-width) solid var(--border-color);
 		border-radius: var(--border-radius);
+	}
+
+	:global {
+		.line-added {
+			background-color: var(--color-green-80);
+		}
+
+		.line-removed {
+			background-color: var(--color-peach-80);
+		}
 	}
 </style>
