@@ -60,7 +60,7 @@
 	const Icon = displayProps.icon;
 </script>
 
-<Icon class="status-icon" data-conclusion={conclusion} aria-label={label} />
+<Icon class="status-icon" data-status={status} data-conclusion={conclusion} aria-label={label} />
 
 <style>
 	:global {
@@ -78,6 +78,17 @@
 
 		.status-icon[data-conclusion='success'] {
 			color: var(--color-success);
+		}
+
+		.status-icon[data-status='in_progress'] {
+			color: var(--color-warning);
+			animation: rotate 2s linear infinite;
+		}
+
+		@keyframes rotate {
+			100% {
+				transform: rotate(360deg);
+			}
 		}
 	}
 </style>
