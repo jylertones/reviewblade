@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { hasApiKey } from '$lib/utils/apiKeyUtils';
-	import { Sword } from 'lucide-svelte';
+	import logo from '$lib/assets/logo_dark.svg';
 
 	const needsSetup = !hasApiKey();
 </script>
@@ -9,7 +9,7 @@
 	<div class="layout-wrapper">
 		<nav>
 			<a href="/">
-				<Sword /> ReviewBlade
+				<img src={logo} alt="ReviewBlade" height="28" />
 			</a>
 			{#if needsSetup}
 				<a href="/" class="right">Setup</a>
