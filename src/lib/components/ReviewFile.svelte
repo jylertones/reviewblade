@@ -26,6 +26,9 @@
 			const fileExtension = file.filename.split('.').pop();
 			codeToHtml(file.patch, {
 				theme: 'tokyo-night',
+				colorReplacements: {
+					'#1a1b26': 'transparent',
+				},
 				lang: fileExtension as StringLiteralUnion<BundledLanguage, string>,
 				transformers: [
 					{
