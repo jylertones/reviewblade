@@ -25,13 +25,13 @@ export const load: PageLoad = async ({ params }) => {
 		owner,
 		repo,
 		base: pullRequest.base.ref,
-		head: pullRequest.head.ref,
+		head: pullRequest.head.sha,
 	});
 
 	const checkRuns = getCheckRuns({
 		owner,
 		repo,
-		head: pullRequest.head.ref,
+		head: pullRequest.head.sha,
 	});
 
 	return {
