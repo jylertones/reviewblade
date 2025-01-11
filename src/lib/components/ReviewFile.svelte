@@ -90,9 +90,16 @@
 		background-color: var(--background-color-secondary);
 		border: var(--border-width) solid var(--border-color);
 		border-radius: var(--border-radius);
+		font-size: var(--font-body-size-2);
 	}
 
 	:global {
+		.line-added,
+		.line-removed {
+			display: inline-block;
+			inline-size: 100%;
+		}
+
 		.line-added {
 			background-color: var(--color-green-80);
 		}
