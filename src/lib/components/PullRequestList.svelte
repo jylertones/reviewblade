@@ -6,9 +6,10 @@
 		title?: string;
 		pullRequests: PullRequestResponse;
 		isError: boolean;
+		noRequestsMessage: string;
 	};
 
-	const { title, pullRequests, isError }: PullRequestListProps = $props();
+	const { title, pullRequests, isError, noRequestsMessage }: PullRequestListProps = $props();
 </script>
 
 {#if isError}
@@ -19,11 +20,17 @@
 
 <div class="list-wrapper">
 	{#if title}<div class="list-header">{title}</div>{/if}
-	<ul class="list">
-		{#each pullRequests as pr}
-			<PullRequestListItem pullRequest={pr} />
-		{/each}
-	</ul>
+	{#if !pullRequests.length}
+		<div class="no-requests-message">
+			<p>{noRequestsMessage}</p>
+		</div>
+	{:else}
+		<ul class="list">
+			{#each pullRequests as pr}
+				<PullRequestListItem pullRequest={pr} />
+			{/each}
+		</ul>
+	{/if}
 </div>
 
 <style>
@@ -44,5 +51,10 @@
 		padding: 0;
 		margin: 0;
 		background-color: var(--background-color-tertiary);
+	}
+
+	.no-requests-message {
+		padding: 0 1rem;
+		font-weight: medium;
 	}
 </style>

@@ -43,11 +43,13 @@
 		title={`My pull requests (${data.myPullRequests.length})`}
 		pullRequests={data.myPullRequests}
 		isError={data.isError}
+		noRequestsMessage="👌 You don't have any outstanding pull requests"
 	/>
 
 	<PullRequestList
 		title={`My reviews (${data.myReviewPullRequests.length})`}
 		pullRequests={data.myReviewPullRequests}
 		isError={data.isError}
+		noRequestsMessage="✅ You're all caught up with code reviews!"
 	/>
 </Flex>
