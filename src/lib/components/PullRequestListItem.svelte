@@ -5,6 +5,7 @@
 	import { formatDistance } from 'date-fns';
 	import type { PullRequestApprovalState } from '$lib/constants/reviews';
 	import ReviewStateIcon from './ReviewStateIcon.svelte';
+	import { Github } from 'lucide-svelte';
 
 	type PullRequestListItemProps = {
 		pullRequest: PullRequestResponse[0];
@@ -62,6 +63,10 @@
 			{pullRequest.user?.login}
 		</div>
 	</div>
+
+	<div class="right">
+		<a href={pullRequest.url} class="github-link"><Github /></a>
+	</div>
 </li>
 
 <style>
@@ -75,6 +80,11 @@
 			background-color: var(--background-color-secondary);
 		}
 
+		&:hover .github-link,
+		&:focus-within .github-link {
+			display: block;
+		}
+
 		&:last-child {
 			border-block-end: 1px solid var(--color-space-cadet);
 		}
@@ -84,6 +94,7 @@
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
+		flex: 2;
 	}
 
 	.title {
@@ -95,5 +106,15 @@
 	.second-line {
 		color: var(--text-secondary-color);
 		font-size: var(--font-body-size-2);
+	}
+
+	.right {
+		flex: 1;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.github-link {
+		display: none;
 	}
 </style>
