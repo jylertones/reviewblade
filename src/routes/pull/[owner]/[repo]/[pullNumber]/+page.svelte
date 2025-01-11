@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Badge, { type BadgeProps } from '$lib/components/Badge.svelte';
 	import Button from '$lib/components/Button.svelte';
 	import CheckRunsList from '$lib/components/CheckRunsList.svelte';
 	import Flex from '$lib/components/Flex.svelte';
@@ -11,6 +12,15 @@
 
 	let { data }: { data: PageData } = $props();
 
+	type Status = 'open' | 'closed' | 'merged';
+	const statusMap: Record<Status, { label: string; variant: BadgeProps['variant'] }> = {
+		open: { label: 'Open', variant: 'default' },
+		closed: { label: 'Closed', variant: 'warning' },
+		merged: { label: 'Merged', variant: 'success' },
+	};
+
+	const status: Status = data.pullRequest.merged_at ? 'merged' : data.pullRequest.state;
+
 	const reviews = [
 		...getAwaitingReviews(data.pullRequest),
 		...getDisplayableReviews(data.pullRequestReviews),
@@ -19,8 +29,6 @@
 	function handleCopy() {
 		navigator.clipboard.writeText(data.pullRequest.head.ref);
 	}
-
-	console.log({ reviews, prReviews: data.pullRequestReviews });
 </script>
 
 <svelte:head>
@@ -28,7 +36,10 @@
 </svelte:head>
 
 <section>
-	<h1>{data.pullRequest.title}</h1>
+	<Flex gap={4}
+		><Badge variant={statusMap[status].variant}>{statusMap[status].label}</Badge>
+		<h1>{data.pullRequest.title}</h1></Flex
+	>
 
 	<Flex direction="row" justify="space-between">
 		<Flex direction="row" align="center" gap={4}>

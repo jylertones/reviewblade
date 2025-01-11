@@ -121,6 +121,18 @@
 
 			--icon-size-large: var(--font-heading-size-2);
 			--icon-size-default: var(--font-body-size-1);
+
+			--badge-default-background-color: var(--color-maroon-50);
+			--badge-default-color: var(--color-maroon-10);
+			--badge-default-border-color: var(--color-maroon-40);
+
+			--badge-success-background-color: var(--color-green-80);
+			--badge-success-color: var(--color-green-10);
+			--badge-success-border-color: var(--color-green-40);
+
+			--badge-warning-background-color: var(--color-yellow-70);
+			--badge-warning-color: var(--color-yellow-10);
+			--badge-warning-border-color: var(--color-yellow-40);
 		}
 
 		@supports (font-variation-settings: normal) {
