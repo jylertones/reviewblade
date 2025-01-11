@@ -1,9 +1,18 @@
 <script lang="ts">
 	import { hasApiKey } from '$lib/utils/apiKeyUtils';
 	import logo from '$lib/assets/logo_dark.svg';
+	import { goto } from '$app/navigation';
 
 	const needsSetup = !hasApiKey();
+
+	function handleKeyUp(event: KeyboardEvent) {
+		if (event.key === 'p') {
+			goto('/pulls');
+		}
+	}
 </script>
+
+<svelte:window onkeyup={handleKeyUp} />
 
 <div class="nav-wrapper">
 	<div class="layout-wrapper">
