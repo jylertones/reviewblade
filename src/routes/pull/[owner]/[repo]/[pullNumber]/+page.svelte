@@ -21,19 +21,22 @@
 
 	let { data }: { data: PageData } = $props();
 
-	type Status = 'open' | 'closed' | 'merged';
+	type Status = 'open' | 'closed' | 'merged' | 'draft';
 	const statusMap: Record<
 		Status,
 		{ label: string; variant: BadgeProps['variant'] }
 	> = {
+		draft: { label: 'Draft', variant: 'warning' },
 		open: { label: 'Open', variant: 'default' },
 		closed: { label: 'Closed', variant: 'warning' },
 		merged: { label: 'Merged', variant: 'success' },
 	};
 
-	const status: Status = data.pullRequest.merged_at
-		? 'merged'
-		: data.pullRequest.state;
+	const status: Status = data.pullRequest.draft
+		? 'draft'
+		: data.pullRequest.merged_at
+			? 'merged'
+			: data.pullRequest.state;
 
 	let checksExpanded = $state(false);
 	function handleChecksExpand() {

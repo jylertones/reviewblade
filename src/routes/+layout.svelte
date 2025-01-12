@@ -130,7 +130,7 @@
 			--badge-success-color: var(--color-green-10);
 			--badge-success-border-color: var(--color-green-40);
 
-			--badge-warning-background-color: var(--color-yellow-70);
+			--badge-warning-background-color: var(--color-yellow-80);
 			--badge-warning-color: var(--color-yellow-10);
 			--badge-warning-border-color: var(--color-yellow-40);
 		}
