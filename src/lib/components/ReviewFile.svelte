@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { codeToHtml, type StringLiteralUnion } from 'shiki';
 	import Flex from './Flex.svelte';
+	import Box from './Box.svelte';
 	import Button from './Button.svelte';
 	import { ChevronDown, ChevronRight } from 'lucide-svelte';
 	import type { BundledLanguage } from 'shiki/bundle/web';
@@ -9,7 +10,14 @@
 		file: {
 			filename: string;
 			patch?: string;
-			status: 'added' | 'removed' | 'modified' | 'renamed' | 'copied' | 'changed' | 'unchanged';
+			status:
+				| 'added'
+				| 'removed'
+				| 'modified'
+				| 'renamed'
+				| 'copied'
+				| 'changed'
+				| 'unchanged';
 			previous_filename?: string;
 		};
 	};
@@ -59,7 +67,7 @@
 	});
 </script>
 
-<div class="file">
+<Box>
 	<Flex justify="space-between"
 		>{file.filename}
 		<Flex gap={4}>
@@ -84,18 +92,9 @@
 			<code bind:this={patchElement}>{file.patch}</code>
 		{/if}
 	</div>
-</div>
+</Box>
 
 <style>
-	.file {
-		inline-size: 100%;
-		padding: 1rem;
-		background-color: var(--background-color-secondary);
-		border: var(--border-width) solid var(--border-color);
-		border-radius: var(--border-radius);
-		font-size: var(--font-body-size-2);
-	}
-
 	:global {
 		.line-added,
 		.line-removed {

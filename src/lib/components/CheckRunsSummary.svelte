@@ -26,10 +26,11 @@
 <ul>
 	{#each groupedRuns.values() as runs}
 		<li>
-			<Flex gap={8}
-				><CheckRunIcon status={runs[0].status} conclusion={runs[0].conclusion} /><span
-					>{runs.length}</span
-				></Flex
+			<Flex gap={4} align="center"
+				><CheckRunIcon
+					status={runs[0].status}
+					conclusion={runs[0].conclusion}
+				/><span>{runs.length}</span></Flex
 			>
 		</li>
 	{/each}
@@ -37,14 +38,11 @@
 
 <style>
 	ul {
-		display: inline-flex;
-		gap: 0.25rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
 		list-style: none;
 		padding: 0;
 		margin-block: 0;
-	}
-
-	li:not(:last-child) {
-		margin-block-end: 0.25rem;
 	}
 </style>

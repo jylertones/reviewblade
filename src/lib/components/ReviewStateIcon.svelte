@@ -1,6 +1,12 @@
 <script lang="ts">
 	import type { PullRequestApprovalState } from '$lib/constants/reviews';
-	import { Badge, BadgeAlert, BadgeCheck, BadgeHelp, BadgeInfo } from 'lucide-svelte';
+	import {
+		Badge,
+		BadgeAlert,
+		BadgeCheck,
+		BadgeHelp,
+		BadgeInfo,
+	} from 'lucide-svelte';
 
 	const mapApprovalStateToDisplay: Record<
 		PullRequestApprovalState,
@@ -21,9 +27,19 @@
 	const Icon = mapApprovalStateToDisplay[state].icon;
 </script>
 
-<Icon class="status-icon" data-status={state} />
+<span title={mapApprovalStateToDisplay[state].label}>
+	<Icon
+		class="status-icon"
+		data-status={state}
+		aria-label={mapApprovalStateToDisplay[state].label}
+	/>
+</span>
 
 <style>
+	span {
+		display: contents;
+	}
+
 	:global {
 		.status-icon {
 			color: var(--text-secondary-color);

@@ -1,5 +1,8 @@
 <script lang="ts">
-	import type { CheckRunConclusion, CheckRunState } from '$lib/constants/reviews';
+	import type {
+		CheckRunConclusion,
+		CheckRunState,
+	} from '$lib/constants/reviews';
 	import {
 		Badge,
 		CircleAlert,
@@ -26,7 +29,10 @@
 		action_required: { label: 'Action required', icon: CircleAlert },
 	};
 
-	const mapCheckRunStateToDisplay: Record<CheckRunState, { label: string; icon: typeof Badge }> = {
+	const mapCheckRunStateToDisplay: Record<
+		CheckRunState,
+		{ label: string; icon: typeof Badge }
+	> = {
 		['queued']: { label: 'Queued', icon: CircleDashed },
 		['in_progress']: { label: 'In progress', icon: LoaderCircle },
 		['completed']: { label: 'Completed', icon: CircleCheck },
@@ -60,9 +66,20 @@
 	const Icon = displayProps.icon;
 </script>
 
-<Icon class="status-icon" data-status={status} data-conclusion={conclusion} aria-label={label} />
+<span title={label}>
+	<Icon
+		class="status-icon"
+		data-status={status}
+		data-conclusion={conclusion}
+		aria-label={label}
+	/>
+</span>
 
 <style>
+	span {
+		display: contents;
+	}
+
 	:global {
 		.status-icon {
 			color: var(--text-secondary-color);
@@ -71,7 +88,8 @@
 		}
 
 		.status-icon[data-conclusion='failure'],
-		.status-icon[data-conclusion='action_required'] .status-icon[data-conclusion='cancelled'],
+		.status-icon[data-conclusion='action_required']
+			.status-icon[data-conclusion='cancelled'],
 		.status-icon[data-conclusion='timed_out'] {
 			color: var(--color-error);
 		}
