@@ -78,11 +78,12 @@
 			--color-green-20: #9addc8;
 			--color-green-10: #cdeee3;
 
-			--background-color: var(--color-primary-70);
-			--background-color-secondary: var(--color-primary-80);
-			--background-color-tertiary: var(--color-primary-60);
+			--background-color: var(--color-primary-80);
+			--background-color-secondary: var(--color-primary-90);
+			--background-color-tertiary: var(--color-primary-70);
 			--text-primary-color: var(--color-primary-10);
 			--text-secondary-color: var(--color-primary-30);
+			--text-link-color: var(--color-primary-30);
 
 			--color-success: var(--color-green-50);
 			--color-warning: var(--color-yellow-50);
