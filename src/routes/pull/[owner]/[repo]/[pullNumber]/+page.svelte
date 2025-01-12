@@ -172,6 +172,11 @@
 	}
 
 	.description-body :global {
+		a {
+			color: var(--text-link-color);
+			text-decoration: none;
+		}
+
 		code {
 			background-color: var(--background-color-tertiary);
 			font-size: var(--font-body-size-2);
