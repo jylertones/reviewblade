@@ -31,7 +31,9 @@
 
 	$effect(() => {
 		if (patchElement && file.patch && expanded) {
-			const fileExtension = file.filename.split('.').pop();
+			const fileExtension = file.filename.includes('.')
+				? file.filename.split('.').pop()
+				: 'text';
 			codeToHtml(file.patch, {
 				theme: 'tokyo-night',
 				colorReplacements: {
