@@ -1,7 +1,10 @@
 import type { PullRequestResponse } from '$lib/api/getPullRequests';
 import invariant from 'invariant';
 
-export function getRepoPathFromPr(pr: PullRequestResponse[0]): { repo: string; owner: string } {
+export function getRepoPathFromPr(pr: PullRequestResponse[0]): {
+	repo: string;
+	owner: string;
+} {
 	const fullRepoUrlInParts = pr.repository_url.split('/');
 	const repo = fullRepoUrlInParts.pop();
 	const owner = fullRepoUrlInParts.pop();

@@ -9,7 +9,12 @@
 		noRequestsMessage: string;
 	};
 
-	const { title, pullRequests, isError, noRequestsMessage }: PullRequestListProps = $props();
+	const {
+		title,
+		pullRequests,
+		isError,
+		noRequestsMessage,
+	}: PullRequestListProps = $props();
 </script>
 
 {#if isError}

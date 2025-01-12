@@ -1,4 +1,8 @@
-export type PullRequestApprovalState = 'approved' | 'waiting' | 'changes_requested' | 'commented';
+export type PullRequestApprovalState =
+	| 'approved'
+	| 'waiting'
+	| 'changes_requested'
+	| 'commented';
 
 export type CheckRunConclusion =
 	| 'success'

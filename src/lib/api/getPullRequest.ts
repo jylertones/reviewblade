@@ -10,7 +10,11 @@ export type GetPullRequestParams = {
 export type PullRequestResponse =
 	Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}']['response']['data'];
 
-export async function getPullRequest({ owner, repo, pullNumber }: GetPullRequestParams) {
+export async function getPullRequest({
+	owner,
+	repo,
+	pullNumber,
+}: GetPullRequestParams) {
 	const getPullRequestApiUrl = `https://api.github.com/repos/${owner}/${repo}/pulls/${pullNumber}`;
 
 	const response = await request({

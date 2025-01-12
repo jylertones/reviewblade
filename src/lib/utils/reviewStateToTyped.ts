@@ -1,7 +1,12 @@
 import type { PullRequestApprovalState } from '$lib/constants/reviews';
 
 export function reviewStateToTyped(
-	rawReviewState: string | 'CHANGES_REQUESTED' | 'COMMENTED' | 'APPROVED' | 'PENDING',
+	rawReviewState:
+		| string
+		| 'CHANGES_REQUESTED'
+		| 'COMMENTED'
+		| 'APPROVED'
+		| 'PENDING',
 ): PullRequestApprovalState {
 	switch (rawReviewState) {
 		case 'APPROVED':

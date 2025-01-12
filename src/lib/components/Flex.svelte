@@ -26,7 +26,13 @@
 </script>
 
 <div
-	class={['flex', `gap-${gap}`, `align-${align}`, `direction-${direction}`, `justify-${justify}`]}
+	class={[
+		'flex',
+		`gap-${gap}`,
+		`align-${align}`,
+		`direction-${direction}`,
+		`justify-${justify}`,
+	]}
 >
 	{@render children()}
 </div>

@@ -6,7 +6,9 @@ type AwaitingReview = {
 	state: PullRequestApprovalState;
 };
 
-export function getAwaitingReviews(pullRequest: PullRequestResponse): AwaitingReview[] {
+export function getAwaitingReviews(
+	pullRequest: PullRequestResponse,
+): AwaitingReview[] {
 	const result: AwaitingReview[] = [];
 
 	pullRequest.requested_reviewers?.forEach((reviewer) => {

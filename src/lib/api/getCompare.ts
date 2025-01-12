@@ -11,7 +11,12 @@ export type GetCompareParams = {
 export type CompareResponse =
 	Endpoints['GET /repos/{owner}/{repo}/compare/{base}...{head}']['response']['data'];
 
-export async function getCompare({ owner, repo, base, head }: GetCompareParams) {
+export async function getCompare({
+	owner,
+	repo,
+	base,
+	head,
+}: GetCompareParams) {
 	const getCompareApiUrl = `https://api.github.com/repos/${owner}/${repo}/compare/${base}...${head}`;
 
 	const response = await request({

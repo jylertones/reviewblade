@@ -20,22 +20,27 @@
 
 <Flex direction="column" gap={16}>
 	<Text>
-		Welcome to this small tool that I made to help me keep track of my pull requests on GitHub.
+		Welcome to this small tool that I made to help me keep track of my pull
+		requests on GitHub.
 	</Text>
 
 	<Text>
-		This tool stores no data on your machine. Your data lives on GitHub and your communication is
-		with GitHub directly. Even your GitHub token is not stored on any ReviewBlade server. It is
-		stored on your local machine and is only sent to GitHub.
+		This tool stores no data on your machine. Your data lives on GitHub and your
+		communication is with GitHub directly. Even your GitHub token is not stored
+		on any ReviewBlade server. It is stored on your local machine and is only
+		sent to GitHub.
 	</Text>
 
 	{#if needsSetup}
 		<Text>
-			To get started, generate an access token and input it below. At the moment, classic personal
-			access tokens are highly recommended because GitHub does not allow fine-grained tokens to
-			access Checks (such as tests and workflows) that happen on a pull request. To see your
-			personal access tokens, go to your GitHub settings, then Developer settings, then Personal
-			access tokens. Or <a href="https://github.com/settings/tokens" target="_blank"
+			To get started, generate an access token and input it below. At the
+			moment, classic personal access tokens are highly recommended because
+			GitHub does not allow fine-grained tokens to access Checks (such as tests
+			and workflows) that happen on a pull request. To see your personal access
+			tokens, go to your GitHub settings, then Developer settings, then Personal
+			access tokens. Or <a
+				href="https://github.com/settings/tokens"
+				target="_blank"
 				>click on this link to go directly to your personal access tokens</a
 			>href.
 		</Text>
@@ -46,7 +51,9 @@
 					<Label for="github_token">GitHub Token</Label>
 					<Input name="github_token" id="github_token" bind:value={apiKey} />
 				</div>
-				<Button variant="primary" onClick={handleSubmitApiKey}>Save and View Pull Requests</Button>
+				<Button variant="primary" onClick={handleSubmitApiKey}
+					>Save and View Pull Requests</Button
+				>
 			</Flex>
 		</form>
 	{/if}

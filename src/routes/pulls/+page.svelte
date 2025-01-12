@@ -8,7 +8,9 @@
 
 	function handleKeyUp(event: KeyboardEvent) {
 		const focusedItem = document.activeElement;
-		const allFocusableListItems = document.querySelectorAll('[data-keyboard-focusable]');
+		const allFocusableListItems = document.querySelectorAll(
+			'[data-keyboard-focusable]',
+		);
 		const focusedItemIndex = focusedItem
 			? Array.from(allFocusableListItems).indexOf(focusedItem)
 			: -1;

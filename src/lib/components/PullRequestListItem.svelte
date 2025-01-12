@@ -20,7 +20,11 @@
 	$effect(() => {
 		async function getPullReviewData() {
 			try {
-				const pullReviews = await getPullReviews({ owner, repo, pull_number: pullRequest.number });
+				const pullReviews = await getPullReviews({
+					owner,
+					repo,
+					pull_number: pullRequest.number,
+				});
 				isPullReviewsError = false;
 
 				pullReviewState = pullReviews.reduce((acc, curr) => {
@@ -54,12 +58,15 @@
 
 	<div class="stack">
 		<div class="title">
-			<a href={`/pull/${owner}/${repo}/${pullRequest.number}`} data-keyboard-focusable
-				>{pullRequest.title}</a
+			<a
+				href={`/pull/${owner}/${repo}/${pullRequest.number}`}
+				data-keyboard-focusable>{pullRequest.title}</a
 			>
 		</div>
 		<div class="second-line">
-			Created {formatDistance(new Date(pullRequest.created_at), new Date(), { addSuffix: true })} by
+			Created {formatDistance(new Date(pullRequest.created_at), new Date(), {
+				addSuffix: true,
+			})} by
 			{pullRequest.user?.login}
 		</div>
 	</div>

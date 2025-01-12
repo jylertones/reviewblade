@@ -6,7 +6,11 @@ export type GetPullRequestDiffParams = {
 	pullNumber: number;
 };
 
-export async function getPullRequestDiff({ owner, repo, pullNumber }: GetPullRequestDiffParams) {
+export async function getPullRequestDiff({
+	owner,
+	repo,
+	pullNumber,
+}: GetPullRequestDiffParams) {
 	const getPullRequestDiffApiUrl = `https://api.github.com/repos/${owner}/${repo}/pulls/${pullNumber}`;
 
 	const response = await request({
