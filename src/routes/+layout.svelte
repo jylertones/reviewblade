@@ -152,6 +152,10 @@
 			padding: 0;
 		}
 
+		* {
+			box-sizing: border-box;
+		}
+
 		main {
 			padding-block-start: 1rem;
 		}
