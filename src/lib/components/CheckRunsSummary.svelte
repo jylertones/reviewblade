@@ -11,17 +11,25 @@
 	const { checkRuns }: CheckRunsListProps = $props();
 
 	const sortedRuns = sortCheckRuns(checkRuns);
+	const groupedRuns = sortedRuns.reduce((acc, run) => {
+		const key = `${run.status}-${run.conclusion}`;
+		if (!acc.has(key)) {
+			acc.set(key, []);
+		}
+
+		acc.get(key)!.push(run);
+
+		return acc;
+	}, new Map<string, CheckRun[]>());
 </script>
 
 <ul>
-	{#each sortedRuns as check}
+	{#each groupedRuns.values() as runs}
 		<li>
-			<a href={check.details_url} target="_blank">
-				<Flex gap={8}
-					><CheckRunIcon status={check.status} conclusion={check.conclusion} /><span
-						>{check.name}</span
-					></Flex
-				></a
+			<Flex gap={8}
+				><CheckRunIcon status={runs[0].status} conclusion={runs[0].conclusion} /><span
+					>{runs.length}</span
+				></Flex
 			>
 		</li>
 	{/each}
@@ -29,6 +37,8 @@
 
 <style>
 	ul {
+		display: inline-flex;
+		gap: 0.25rem;
 		list-style: none;
 		padding: 0;
 		margin-block: 0;

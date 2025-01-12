@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Badge, { type BadgeProps } from '$lib/components/Badge.svelte';
 	import Button from '$lib/components/Button.svelte';
+	import Text from '$lib/components/Text.svelte';
 	import CheckRunsList from '$lib/components/CheckRunsList.svelte';
 	import Flex from '$lib/components/Flex.svelte';
 	import ReviewFile from '$lib/components/ReviewFile.svelte';
@@ -8,7 +9,8 @@
 	import { getAwaitingReviews } from '$lib/utils/getAwaitingReviews';
 	import { getDisplayableReviews } from '$lib/utils/getDisplayableReviews';
 	import type { PageData } from './$types';
-	import { ArrowRight, Copy, Github } from 'lucide-svelte';
+	import { ArrowRight, ChevronDown, ChevronRight, Copy, Github } from 'lucide-svelte';
+	import CheckRunsSummary from '$lib/components/CheckRunsSummary.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -20,6 +22,12 @@
 	};
 
 	const status: Status = data.pullRequest.merged_at ? 'merged' : data.pullRequest.state;
+
+	let checksExpanded = $state(false);
+	function handleChecksExpand() {
+		checksExpanded = !checksExpanded;
+	}
+	const ExpandedIcon = $derived(checksExpanded ? ChevronDown : ChevronRight);
 
 	const reviews = [
 		...getAwaitingReviews(data.pullRequest),
@@ -36,10 +44,10 @@
 </svelte:head>
 
 <section>
-	<Flex gap={4}
-		><Badge variant={statusMap[status].variant}>{statusMap[status].label}</Badge>
-		<h1>{data.pullRequest.title}</h1></Flex
-	>
+	<Flex gap={4}>
+		<Badge variant={statusMap[status].variant}>{statusMap[status].label}</Badge>
+		<h1>{data.pullRequest.title}</h1>
+	</Flex>
 
 	<Flex direction="row" justify="space-between">
 		<Flex direction="row" align="center" gap={4}>
@@ -59,17 +67,41 @@
 </section>
 
 <section>
-	<h2>Approvals</h2>
+	<Flex gap={8}>
+		<h2>Approvals</h2>
 
-	{#each reviews as review}
-		<Flex gap={4}>
-			<ReviewStateIcon state={review.state} />
-			<span>{review.name}</span>
-		</Flex>
-	{/each}
-	{#if reviews.length === 0}
-		None
-	{/if}
+		{#each reviews as review}
+			<Flex gap={4}>
+				<ReviewStateIcon state={review.state} />
+				<Text>{review.name}</Text>
+			</Flex>
+		{/each}
+		{#if reviews.length === 0}
+			<Text>None</Text>
+		{/if}
+	</Flex>
+</section>
+
+<section>
+	<Flex gap={16}>
+		<h2>Checks</h2>
+		<div class="checks-summary">
+			{#await data.checkRuns then checks}
+				<CheckRunsSummary checkRuns={checks.check_runs} />
+			{/await}
+		</div>
+		<Button variant="icon" aria-controls="expand-checks" onClick={handleChecksExpand}
+			><ExpandedIcon /></Button
+		>
+	</Flex>
+
+	{#await data.checkRuns then checks}
+		{#if checksExpanded}
+			<div id="expand-checks">
+				<CheckRunsList checkRuns={checks.check_runs} />
+			</div>
+		{/if}
+	{/await}
 </section>
 
 <section>
@@ -79,17 +111,6 @@
 		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
 		{@html data.body}
 	</div>
-</section>
-
-<section>
-	<h2>Checks</h2>
-	{#await data.checkRuns}
-		Loading checks...
-	{:then checks}
-		<CheckRunsList checkRuns={checks.check_runs} />
-	{:catch error}
-		Error loading checks: {error.message}
-	{/await}
 </section>
 
 <section>
@@ -111,6 +132,10 @@
 	.branch-name {
 		font-size: var(--font-body-size-2);
 		color: var(--text-secondary-color);
+	}
+
+	.checks-summary {
+		flex: 2;
 	}
 
 	/* These are introduced by GitHub markdown */
