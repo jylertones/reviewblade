@@ -116,6 +116,7 @@
 				<Button
 					variant="icon"
 					aria-controls="expand-checks"
+					aria-expanded={checksExpanded}
 					onClick={handleChecksExpand}><ExpandedChecksIcon /></Button
 				>
 			</Flex>
@@ -152,18 +153,19 @@
 					<Button
 						variant="icon"
 						aria-controls="expand-discussion"
+						aria-expanded={discussionExpanded}
 						onClick={handleDiscussionExpand}><ExpandedDiscussionIcon /></Button
 					>
 				</Flex>
 
-				<div id="expand-discussion" aria-expanded={discussionExpanded}>
-					{#if discussionExpanded}
+				{#if discussionExpanded}
+					<div id="expand-discussion">
 						<PullRequestDiscussion
 							reviews={Promise.resolve(data.pullRequestReviews)}
 							comments={data.pullRequestComments}
 						/>
-					{/if}
-				</div>
+					</div>
+				{/if}
 			</Flex>
 		</BoxBody>
 	</Box>

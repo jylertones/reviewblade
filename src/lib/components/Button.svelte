@@ -10,6 +10,7 @@
 
 		// Other props spread over the button
 		'aria-controls'?: string;
+		'aria-expanded'?: boolean;
 		rel?: HTMLAnchorElement['rel'];
 		target?: HTMLAnchorElement['target'];
 	};
