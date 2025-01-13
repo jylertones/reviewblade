@@ -73,7 +73,7 @@ importers:
         specifier: ^5.4.11
         version: 5.4.11(@types/node@22.10.5)
       vitest:
-        specifier: ^2.0.4
+        specifier: ^2.1.8
         version: 2.1.8(@types/node@22.10.5)
 
 packages:
