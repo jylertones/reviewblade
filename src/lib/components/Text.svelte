@@ -18,10 +18,6 @@
 		max-inline-size: 45em;
 	}
 
-	:global(p) + p {
-		margin-block-start: 1rem;
-	}
-
 	p[data-size='p1'] {
 		font-size: var(--font-body-size-1);
 		color: var(--text-p1-color);

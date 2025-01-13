@@ -2,11 +2,9 @@
 	import Badge, { type BadgeProps } from '$lib/components/Badge.svelte';
 	import Box from '$lib/components/Box.svelte';
 	import Button from '$lib/components/Button.svelte';
-	import Text from '$lib/components/Text.svelte';
 	import CheckRunsList from '$lib/components/CheckRunsList.svelte';
 	import Flex from '$lib/components/Flex.svelte';
 	import ReviewFile from '$lib/components/ReviewFile.svelte';
-	import ReviewStateIcon from '$lib/components/ReviewStateIcon.svelte';
 	import { getAwaitingReviews } from '$lib/utils/getAwaitingReviews';
 	import { getDisplayableReviews } from '$lib/utils/getDisplayableReviews';
 	import type { PageData } from './$types';
@@ -18,6 +16,10 @@
 		Github,
 	} from 'lucide-svelte';
 	import CheckRunsSummary from '$lib/components/CheckRunsSummary.svelte';
+	import ApprovalsSummary from '$lib/components/ApprovalsSummary.svelte';
+	import PullRequestDiscussion from '$lib/components/PullRequestDiscussion.svelte';
+	import BoxBody from '$lib/components/BoxBody.svelte';
+	import UserSubmittedText from '$lib/components/UserSubmittedText.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -42,7 +44,17 @@
 	function handleChecksExpand() {
 		checksExpanded = !checksExpanded;
 	}
-	const ExpandedIcon = $derived(checksExpanded ? ChevronDown : ChevronRight);
+	const ExpandedChecksIcon = $derived(
+		checksExpanded ? ChevronDown : ChevronRight,
+	);
+
+	let discussionExpanded = $state(false);
+	function handleDiscussionExpand() {
+		discussionExpanded = !discussionExpanded;
+	}
+	const ExpandedDiscussionIcon = $derived(
+		discussionExpanded ? ChevronDown : ChevronRight,
+	);
 
 	const reviews = [
 		...getAwaitingReviews(data.pullRequest),
@@ -88,53 +100,72 @@
 <section>
 	<h2>Description</h2>
 
-	<div class="description-body">
-		<!-- eslint-disable-next-line svelte/no-at-html-tags -->
-		{@html data.body}
-	</div>
+	<UserSubmittedText text={data.body} />
 </section>
 
 <section>
 	<Box>
-		<Flex gap={8}>
-			<h2>Approvals</h2>
+		<BoxBody>
+			<Flex gap={16} align="center">
+				<h2>Checks</h2>
+				<div class="checks-summary">
+					{#await data.checkRuns then checks}
+						<CheckRunsSummary checkRuns={checks.check_runs} />
+					{/await}
+				</div>
+				<Button
+					variant="icon"
+					aria-controls="expand-checks"
+					onClick={handleChecksExpand}><ExpandedChecksIcon /></Button
+				>
+			</Flex>
 
-			{#each reviews as review}
-				<Flex gap={4}>
-					<ReviewStateIcon state={review.state} />
-					<Text>{review.name}</Text>
-				</Flex>
-			{/each}
-			{#if reviews.length === 0}
-				<Text>None</Text>
-			{/if}
-		</Flex>
+			{#await data.checkRuns then checks}
+				{#if checksExpanded}
+					<div id="expand-checks">
+						<CheckRunsList checkRuns={checks.check_runs} />
+					</div>
+				{/if}
+			{/await}
+		</BoxBody>
 	</Box>
 </section>
 
 <section>
 	<Box>
-		<Flex gap={16} align="center">
-			<h2>Checks</h2>
-			<div class="checks-summary">
-				{#await data.checkRuns then checks}
-					<CheckRunsSummary checkRuns={checks.check_runs} />
-				{/await}
-			</div>
-			<Button
-				variant="icon"
-				aria-controls="expand-checks"
-				onClick={handleChecksExpand}><ExpandedIcon /></Button
-			>
-		</Flex>
+		<BoxBody>
+			<Flex gap={8}>
+				<h2>Approvals</h2>
 
-		{#await data.checkRuns then checks}
-			{#if checksExpanded}
-				<div id="expand-checks">
-					<CheckRunsList checkRuns={checks.check_runs} />
+				<ApprovalsSummary {reviews} />
+			</Flex>
+		</BoxBody>
+	</Box>
+</section>
+
+<section>
+	<Box>
+		<BoxBody>
+			<Flex gap={16} direction="column">
+				<Flex gap={8} justify="space-between">
+					<h2>Discussion</h2>
+					<Button
+						variant="icon"
+						aria-controls="expand-discussion"
+						onClick={handleDiscussionExpand}><ExpandedDiscussionIcon /></Button
+					>
+				</Flex>
+
+				<div id="expand-discussion" aria-expanded={discussionExpanded}>
+					{#if discussionExpanded}
+						<PullRequestDiscussion
+							reviews={Promise.resolve(data.pullRequestReviews)}
+							comments={data.pullRequestComments}
+						/>
+					{/if}
 				</div>
-			{/if}
-		{/await}
+			</Flex>
+		</BoxBody>
 	</Box>
 </section>
 
@@ -161,40 +192,5 @@
 
 	.checks-summary {
 		flex: 2;
-	}
-
-	/* These are introduced by GitHub markdown */
-	:global {
-		.contains-task-list {
-			list-style: none;
-			padding-inline-start: 1rem;
-		}
-	}
-
-	.description-body :global {
-		a {
-			color: var(--text-link-color);
-			text-decoration: none;
-		}
-
-		code {
-			background-color: var(--background-color-tertiary);
-			font-size: var(--font-body-size-2);
-			padding-inline: 0.25rem;
-			padding-block: 0.25rem;
-			border-radius: var(--border-radius);
-		}
-
-		pre {
-			background-color: var(--background-color-tertiary);
-			padding: 0.5rem;
-			border-radius: var(--border-radius);
-		}
-
-		pre > code {
-			background-color: transparent;
-			padding: 0;
-			border-radius: 0;
-		}
 	}
 </style>

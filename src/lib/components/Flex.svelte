@@ -100,14 +100,17 @@
 	}
 
 	.justify-space-between {
+		inline-size: 100%;
 		justify-content: space-between;
 	}
 
 	.justify-space-around {
+		inline-size: 100%;
 		justify-content: space-around;
 	}
 
 	.justify-space-evenly {
+		inline-size: 100%;
 		justify-content: space-evenly;
 	}
 </style>

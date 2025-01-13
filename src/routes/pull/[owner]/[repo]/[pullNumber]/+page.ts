@@ -3,6 +3,7 @@ import { getPullReviews } from '$lib/api/getPullReviews';
 import type { PageLoad } from './$types';
 import { getCompare } from '$lib/api/getCompare';
 import { getCheckRuns } from '$lib/api/getCheckRuns';
+import { getPullRequestComments } from '$lib/api/getPullRequestComments';
 
 export const load: PageLoad = async ({ params }) => {
 	// TODO: probably need to validate these
@@ -34,10 +35,17 @@ export const load: PageLoad = async ({ params }) => {
 		head: pullRequest.head.sha,
 	});
 
+	const pullRequestComments = getPullRequestComments({
+		owner,
+		repo,
+		pullNumber: Number(pullNumber),
+	});
+
 	return {
 		pullRequest,
 		pullRequestReviews,
 		pullRequestDiff,
+		pullRequestComments,
 		checkRuns,
 		body: pullRequest.body_html,
 	};

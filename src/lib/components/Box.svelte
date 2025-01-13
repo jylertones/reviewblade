@@ -8,17 +8,15 @@
 	const { children }: BoxProps = $props();
 </script>
 
-<div>
+<div class="box">
 	{@render children()}
 </div>
 
 <style>
-	div {
+	.box {
 		inline-size: 100%;
-		padding: 1rem;
 		background-color: var(--background-color-secondary);
 		border: var(--border-width) solid var(--border-color);
 		border-radius: var(--border-radius);
-		font-size: var(--font-body-size-2);
 	}
 </style>
