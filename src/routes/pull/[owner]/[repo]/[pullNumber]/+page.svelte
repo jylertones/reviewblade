@@ -86,11 +86,7 @@
 			<pre class="branch-name">{data.pullRequest.base.ref}</pre>
 		</Flex>
 		<div>
-			<Button
-				href={data.pullRequest._links.html.href}
-				target="_blank"
-				rel="noopener"
-			>
+			<Button href={data.pullRequest.html_url} target="_blank" rel="noopener">
 				<Github /> View on GitHub
 			</Button>
 		</div>

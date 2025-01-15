@@ -72,7 +72,7 @@
 	</div>
 
 	<div class="right">
-		<a href={pullRequest.url} class="github-link"><Github /></a>
+		<a href={pullRequest.html_url} class="github-link"><Github /></a>
 	</div>
 </li>
 
