@@ -17,9 +17,9 @@
 	} from 'lucide-svelte';
 	import CheckRunsSummary from '$lib/components/CheckRunsSummary.svelte';
 	import ApprovalsSummary from '$lib/components/ApprovalsSummary.svelte';
-	import PullRequestDiscussion from '$lib/components/PullRequestDiscussion.svelte';
 	import BoxBody from '$lib/components/BoxBody.svelte';
 	import UserSubmittedText from '$lib/components/UserSubmittedText.svelte';
+	import PullRequestDiscussionSection from '$lib/components/PullRequestDiscussionSection.svelte';
 
 	let { data }: { data: PageData } = $props();
 
@@ -46,14 +46,6 @@
 	}
 	const ExpandedChecksIcon = $derived(
 		checksExpanded ? ChevronDown : ChevronRight,
-	);
-
-	let discussionExpanded = $state(false);
-	function handleDiscussionExpand() {
-		discussionExpanded = !discussionExpanded;
-	}
-	const ExpandedDiscussionIcon = $derived(
-		discussionExpanded ? ChevronDown : ChevronRight,
 	);
 
 	const reviews = [
@@ -140,32 +132,10 @@
 	</Box>
 </section>
 
-<section>
-	<Box>
-		<BoxBody>
-			<Flex gap={16} direction="column">
-				<Flex gap={8} justify="space-between">
-					<h2>Discussion</h2>
-					<Button
-						variant="icon"
-						aria-controls="expand-discussion"
-						aria-expanded={discussionExpanded}
-						onClick={handleDiscussionExpand}><ExpandedDiscussionIcon /></Button
-					>
-				</Flex>
-
-				{#if discussionExpanded}
-					<div id="expand-discussion">
-						<PullRequestDiscussion
-							reviews={Promise.resolve(data.pullRequestReviews)}
-							comments={data.pullRequestComments}
-						/>
-					</div>
-				{/if}
-			</Flex>
-		</BoxBody>
-	</Box>
-</section>
+<PullRequestDiscussionSection
+	reviews={Promise.resolve(data.pullRequestReviews)}
+	comments={data.pullRequestComments}
+/>
 
 <section>
 	<h2>Files</h2>
