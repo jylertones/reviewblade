@@ -22,11 +22,15 @@
 				| 'changed'
 				| 'unchanged';
 			previous_filename?: string;
+			changes: number;
 		};
 	};
 
 	const { file }: ReviewFileProps = $props();
-	let expanded = $state(['added', 'modified'].includes(file.status));
+	console.log(file.filename, { ...file });
+	let expanded = $state(
+		['added', 'modified'].includes(file.status) || file.changes > 0,
+	);
 	const ExpandedIcon = $derived(expanded ? ChevronDown : ChevronRight);
 	const expandButtonId = `expand-file-${file.filename.replace(/[\\/\\.]/g, '-')}`;
 
@@ -55,7 +59,7 @@
 			><Flex direction="column"
 				><div>{file.filename}</div>
 				{#if file.status === 'renamed'}
-					<Text class="renamed-file" variant="subtle">
+					<Text class="renamed-file" variant="subtle" size="p2">
 						renamed from {file.previous_filename}
 					</Text>{/if}</Flex
 			>
