@@ -59,9 +59,11 @@
 			><Flex direction="column"
 				><div>{file.filename}</div>
 				{#if file.status === 'renamed'}
-					<Text class="renamed-file" variant="subtle" size="p2">
-						renamed from {file.previous_filename}
-					</Text>{/if}</Flex
+					<div class="renamed-file">
+						<Text variant="subtle" size="p2">
+							renamed from {file.previous_filename}
+						</Text>
+					</div>{/if}</Flex
 			>
 			<Flex gap={4}>
 				<div>
