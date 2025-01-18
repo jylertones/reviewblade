@@ -34,3 +34,9 @@ export type ConsolidatedComment = {
 		};
 	};
 };
+
+export type DiffChunk = {
+	startLineNumber: number;
+	leadingLine: string;
+	patch: string;
+};

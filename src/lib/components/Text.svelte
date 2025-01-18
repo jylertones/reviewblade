@@ -2,15 +2,18 @@
 	import type { Snippet } from 'svelte';
 
 	export type TextProps = {
+		class?: string;
 		children: Snippet<[]>;
 		size?: 'p1' | 'p2';
 		variant?: 'default' | 'subtle';
 	};
 
-	let { size = 'p1', variant, children }: TextProps = $props();
+	let { size = 'p1', variant, children, ...delegated }: TextProps = $props();
 </script>
 
-<p data-size={size} data-variant={variant}>{@render children()}</p>
+<p class={delegated['class']} data-size={size} data-variant={variant}>
+	{@render children()}
+</p>
 
 <style>
 	p {

@@ -91,11 +91,11 @@
 
 			--base-size: 16px;
 			--font-heading-size-1: 1.5rem;
-			--font-heading-line-height-1: 2;
+			--font-heading-line-height-1: 1.33333333333;
 			--font-heading-size-2: 1.25rem;
-			--font-heading-line-height-2: 2;
+			--font-heading-line-height-2: 1.6;
 			--font-heading-size-3: 1.25rem;
-			--font-heading-line-height-3: 1.25;
+			--font-heading-line-height-3: 1;
 			--font-heading-size-4: 1rem;
 			--font-heading-line-height-4: 1.5;
 			--font-heading-size-5: 0.875rem;
