@@ -5,7 +5,8 @@
 	import { formatDistance } from 'date-fns';
 	import type { PullRequestApprovalState } from '$lib/constants/reviews';
 	import ReviewStateIcon from './ReviewStateIcon.svelte';
-	import { Github } from 'lucide-svelte';
+	import { Github, MessageSquare } from 'lucide-svelte';
+	import Flex from './Flex.svelte';
 
 	type PullRequestListItemProps = {
 		pullRequest: PullRequestResponse[0];
@@ -72,7 +73,17 @@
 	</div>
 
 	<div class="right">
-		<a href={pullRequest.html_url} class="github-link"><Github /></a>
+		<Flex gap={16} align="center">
+			{#if pullRequest.comments > 0}
+				<Flex gap={4} align="center">
+					<div class="message-square">
+						<MessageSquare />
+					</div>
+					<span>{pullRequest.comments}</span>
+				</Flex>
+			{/if}
+			<a href={pullRequest.html_url} class="github-link"><Github /></a>
+		</Flex>
 	</div>
 </li>
 
@@ -85,11 +96,6 @@
 
 		&:hover {
 			background-color: var(--background-color-secondary);
-		}
-
-		&:hover .github-link,
-		&:focus-within .github-link {
-			display: block;
 		}
 
 		&:last-child {
@@ -121,7 +127,13 @@
 		justify-content: flex-end;
 	}
 
-	.github-link {
-		display: none;
+	.github-link :global(svg) {
+		block-size: var(--icon-size-large);
+		inline-size: var(--icon-size-large);
+	}
+
+	.message-square :global(svg) {
+		block-size: var(--icon-size-default);
+		inline-size: var(--icon-size-default);
 	}
 </style>
