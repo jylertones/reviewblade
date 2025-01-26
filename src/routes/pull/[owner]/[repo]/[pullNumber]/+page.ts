@@ -8,7 +8,6 @@ import { getPullRequestComments } from '$lib/api/getPullRequestComments';
 export const load: PageLoad = async ({ params }) => {
 	// TODO: probably need to validate these
 	const { owner, repo, pullNumber } = params;
-	console.log({ owner, repo, pullNumber });
 	const [pullRequest, pullRequestReviews] = await Promise.all([
 		getPullRequest({
 			owner: owner,
@@ -22,16 +21,16 @@ export const load: PageLoad = async ({ params }) => {
 		}),
 	]);
 
+	const checkRuns = getCheckRuns({
+		owner,
+		repo,
+		head: pullRequest.head.sha,
+	});
+
 	const pullRequestDiff = getCompare({
 		owner,
 		repo,
 		base: pullRequest.base.ref,
-		head: pullRequest.head.sha,
-	});
-
-	const checkRuns = getCheckRuns({
-		owner,
-		repo,
 		head: pullRequest.head.sha,
 	});
 

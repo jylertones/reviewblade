@@ -20,6 +20,9 @@
 	import BoxBody from '$lib/components/BoxBody.svelte';
 	import UserSubmittedText from '$lib/components/UserSubmittedText.svelte';
 	import PullRequestDiscussionSection from '$lib/components/PullRequestDiscussionSection.svelte';
+	import Text from '$lib/components/Text.svelte';
+	import { getPullRequestMergeState } from '$lib/utils/getPullRequestMergeState';
+	import { mergePullRequest } from '$lib/api/mergePullRequest';
 
 	let { data }: { data: PageData } = $props();
 
@@ -40,6 +43,11 @@
 			? 'merged'
 			: data.pullRequest.state;
 
+	const isNextStepToMerge = data.pullRequest.state === 'open';
+	const mergeState = getPullRequestMergeState({
+		pullRequest: data.pullRequest,
+	});
+
 	let checksExpanded = $state(false);
 	function handleChecksExpand() {
 		checksExpanded = !checksExpanded;
@@ -55,6 +63,25 @@
 
 	function handleCopy() {
 		navigator.clipboard.writeText(data.pullRequest.head.ref);
+	}
+
+	async function handleMergePullRequest() {
+		try {
+			const response = await mergePullRequest({
+				owner: data.pullRequest.base.repo.owner.login,
+				repo: data.pullRequest.base.repo.name,
+				pullNumber: data.pullRequest.number,
+			});
+
+			if (response.merged) {
+				alert('Pull request merged successfully');
+			} else {
+				alert('Error merging pull request');
+			}
+		} catch (e) {
+			console.error(e);
+			alert('Error merging pull request');
+		}
 	}
 </script>
 
@@ -91,28 +118,62 @@
 	<UserSubmittedText text={data.body} />
 </section>
 
+{#if isNextStepToMerge}
+	<section>
+		<Box>
+			<BoxBody>
+				<Flex direction="column">
+					<h2>Merge</h2>
+					{#if mergeState === 'ready'}
+						<Flex gap={16}>
+							<Text>This request is ready to merge!</Text>
+							<Button variant="primary" onClick={handleMergePullRequest}
+								>Merge pull request</Button
+							>
+						</Flex>
+					{:else if mergeState === 'dirty'}
+						<Text>This branch has conflicts with the upstream branch</Text>
+					{:else if mergeState === 'checks_fail'}
+						<Text
+							>The merge request cannot be merged because some checks have not
+							completed successfully</Text
+						>
+					{:else if mergeState === 'needs_review'}
+						<Text
+							>The merge request cannot be merged because it needs to be
+							reviewed</Text
+						>
+					{:else}
+						<Text
+							>This merge request cannot be merged because it is blocked: {mergeState}</Text
+						>
+					{/if}
+				</Flex>
+			</BoxBody>
+		</Box>
+	</section>
+{/if}
+
 <section>
 	<Box>
 		<BoxBody>
-			<Flex gap={16} align="center">
-				<h2>Checks</h2>
-				<div class="checks-summary">
-					{#await data.checkRuns then checks}
-						<CheckRunsSummary checkRuns={checks.check_runs} />
-					{/await}
-				</div>
-				<Button
-					variant="icon"
-					aria-controls="expand-checks"
-					aria-expanded={checksExpanded}
-					onClick={handleChecksExpand}><ExpandedChecksIcon /></Button
-				>
-			</Flex>
+			{#await data.checkRuns then checkRuns}
+				<Flex gap={16} align="center">
+					<h2>Checks</h2>
+					<div class="checks-summary">
+						<CheckRunsSummary checkRuns={checkRuns.check_runs} />
+					</div>
+					<Button
+						variant="icon"
+						aria-controls="expand-checks"
+						aria-expanded={checksExpanded}
+						onClick={handleChecksExpand}><ExpandedChecksIcon /></Button
+					>
+				</Flex>
 
-			{#await data.checkRuns then checks}
 				{#if checksExpanded}
 					<div id="expand-checks">
-						<CheckRunsList checkRuns={checks.check_runs} />
+						<CheckRunsList checkRuns={checkRuns.check_runs} />
 					</div>
 				{/if}
 			{/await}
