@@ -1,10 +1,6 @@
-import type { CheckRunsResponse } from '$lib/api/getCheckRuns';
 import type { PullRequestResponse } from '$lib/api/getPullRequest';
-import type { ReviewResponse } from '$lib/api/getPullReviews';
 
 export type PullRequestMergeState = 'checks_fail' | 'ready' | '';
-
-const BAD_RUN_CONCLUSIONS = ['failure', 'timed_out', 'action_required', null];
 
 export function getPullRequestMergeState({
 	pullRequest,
