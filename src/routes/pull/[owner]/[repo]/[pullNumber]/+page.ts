@@ -21,7 +21,7 @@ export const load: PageLoad = async ({ params }) => {
 		}),
 	]);
 
-	const checkRuns = await getCheckRuns({
+	const checkRuns = getCheckRuns({
 		owner,
 		repo,
 		head: pullRequest.head.sha,

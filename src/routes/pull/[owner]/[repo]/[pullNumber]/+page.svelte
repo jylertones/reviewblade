@@ -46,8 +46,6 @@
 	const isNextStepToMerge = data.pullRequest.state === 'open';
 	const mergeState = getPullRequestMergeState({
 		pullRequest: data.pullRequest,
-		reviews: data.pullRequestReviews,
-		checkRuns: data.checkRuns,
 	});
 
 	let checksExpanded = $state(false);
@@ -129,7 +127,7 @@
 					{#if mergeState === 'ready'}
 						<Flex gap={16}>
 							<Text>This request is ready to merge!</Text>
-							<Button variant="primary" onclick={handleMergePullRequest}
+							<Button variant="primary" onClick={handleMergePullRequest}
 								>Merge pull request</Button
 							>
 						</Flex>
@@ -159,24 +157,26 @@
 <section>
 	<Box>
 		<BoxBody>
-			<Flex gap={16} align="center">
-				<h2>Checks</h2>
-				<div class="checks-summary">
-					<CheckRunsSummary checkRuns={data.checkRuns.check_runs} />
-				</div>
-				<Button
-					variant="icon"
-					aria-controls="expand-checks"
-					aria-expanded={checksExpanded}
-					onClick={handleChecksExpand}><ExpandedChecksIcon /></Button
-				>
-			</Flex>
+			{#await data.checkRuns then checkRuns}
+				<Flex gap={16} align="center">
+					<h2>Checks</h2>
+					<div class="checks-summary">
+						<CheckRunsSummary checkRuns={checkRuns.check_runs} />
+					</div>
+					<Button
+						variant="icon"
+						aria-controls="expand-checks"
+						aria-expanded={checksExpanded}
+						onClick={handleChecksExpand}><ExpandedChecksIcon /></Button
+					>
+				</Flex>
 
-			{#if checksExpanded}
-				<div id="expand-checks">
-					<CheckRunsList checkRuns={data.checkRuns.check_runs} />
-				</div>
-			{/if}
+				{#if checksExpanded}
+					<div id="expand-checks">
+						<CheckRunsList checkRuns={checkRuns.check_runs} />
+					</div>
+				{/if}
+			{/await}
 		</BoxBody>
 	</Box>
 </section>

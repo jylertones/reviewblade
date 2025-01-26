@@ -8,29 +8,19 @@ const BAD_RUN_CONCLUSIONS = ['failure', 'timed_out', 'action_required', null];
 
 export function getPullRequestMergeState({
 	pullRequest,
-	reviews,
-	checkRuns,
 }: {
 	pullRequest: PullRequestResponse;
-	reviews: ReviewResponse['data'];
-	checkRuns: CheckRunsResponse;
 }) {
 	// It's possible that the pull request doesn't need checks or approvals to pass
 	if (pullRequest.mergeable && pullRequest.mergeable_state === 'clean') {
 		return 'ready';
 	}
 
-	if (
-		checkRuns.check_runs.some(
-			(run) =>
-				run.status !== 'completed' ||
-				BAD_RUN_CONCLUSIONS.includes(run.conclusion),
-		)
-	) {
+	if (pullRequest.mergeable_state === 'unstable') {
 		return 'checks_fail';
 	}
 
-	if (!reviews.some((review) => review.state === 'APPROVED')) {
+	if (pullRequest.mergeable_state === 'blocked') {
 		return 'needs_review';
 	}
 
