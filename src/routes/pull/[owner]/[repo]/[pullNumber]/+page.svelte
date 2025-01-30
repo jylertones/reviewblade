@@ -64,8 +64,10 @@
 		navigator.clipboard.writeText(data.pullRequest.head.ref);
 	}
 
+	let isMerging = $state(false);
 	async function handleMergePullRequest() {
 		try {
+			isMerging = true;
 			const response = await mergePullRequest({
 				owner: data.pullRequest.base.repo.owner.login,
 				repo: data.pullRequest.base.repo.name,
@@ -74,12 +76,15 @@
 
 			if (response.merged) {
 				alert('Pull request merged successfully');
+				location.reload();
 			} else {
 				alert('Error merging pull request');
 			}
 		} catch (e) {
 			console.error(e);
 			alert('Error merging pull request');
+		} finally {
+			isMerging = false;
 		}
 	}
 </script>
@@ -124,8 +129,12 @@
 					{#if mergeState === 'ready'}
 						<Flex gap={16}>
 							<Text>This request is ready to merge!</Text>
-							<Button variant="primary" onClick={handleMergePullRequest}
-								>Merge pull request</Button
+							<Button
+								variant="primary"
+								onClick={handleMergePullRequest}
+								loading={isMerging}
+							>
+								Merge pull request</Button
 							>
 						</Flex>
 					{:else if mergeState === 'dirty'}

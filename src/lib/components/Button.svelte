@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { LoaderCircle } from 'lucide-svelte';
 	import type { Snippet } from 'svelte';
 
 	type ButtonProps = {
@@ -7,6 +8,7 @@
 		onClick?: (event: SubmitEvent) => void;
 		href?: string;
 		children: Snippet<[]>;
+		loading?: boolean;
 
 		// Other props spread over the button
 		'aria-controls'?: string;
@@ -21,6 +23,7 @@
 		onClick,
 		href,
 		children,
+		loading = false,
 		...other
 	}: ButtonProps = $props();
 	const tag = href ? 'a' : 'button';
@@ -35,6 +38,9 @@
 	data-variant={variant}
 	{...other}
 >
+	{#if loading}
+		<LoaderCircle class="rotate" />
+	{/if}
 	{@render children()}
 </svelte:element>
 
@@ -88,5 +94,21 @@
 		border: 0;
 		background-color: transparent;
 		color: var(--button-default-color);
+	}
+
+	:global {
+		.rotate {
+			animation: rotate 2s linear infinite;
+			margin-inline-end: 0.25rem;
+		}
+
+		@keyframes rotate {
+			0% {
+				transform: rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+			}
+		}
 	}
 </style>
