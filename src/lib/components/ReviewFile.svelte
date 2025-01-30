@@ -27,7 +27,6 @@
 	};
 
 	const { file }: ReviewFileProps = $props();
-	console.log(file.filename, { ...file });
 	let expanded = $state(
 		['added', 'modified'].includes(file.status) || file.changes > 0,
 	);
