@@ -94,21 +94,19 @@
 		<h1>{data.pullRequest.title}</h1>
 	</Flex>
 
-	<Flex direction="row" justify="space-between">
-		<Flex direction="row" align="center" gap={4}>
-			<Flex direction="row" align="center" gap={2}>
-				<pre class="branch-name">{data.pullRequest.head.ref}</pre>
-				<Button onClick={handleCopy} variant="icon"><Copy /></Button>
-			</Flex>
-			<ArrowRight />
-			<pre class="branch-name">{data.pullRequest.base.ref}</pre>
+	<Flex direction="row" align="center" gap={4}>
+		<Flex direction="row" align="center" gap={2}>
+			<pre class="branch-name">{data.pullRequest.head.ref}</pre>
+			<Button onClick={handleCopy} variant="icon"><Copy /></Button>
 		</Flex>
-		<div>
-			<Button href={data.pullRequest.html_url} target="_blank" rel="noopener">
-				<Github /> View on GitHub
-			</Button>
-		</div>
+		<ArrowRight />
+		<pre class="branch-name">{data.pullRequest.base.ref}</pre>
 	</Flex>
+	<div>
+		<Button href={data.pullRequest.html_url} target="_blank" rel="noopener">
+			<Github />View on GitHub
+		</Button>
+	</div>
 </section>
 
 <section>
@@ -216,6 +214,9 @@
 	.branch-name {
 		font-size: var(--font-body-size-2);
 		color: var(--text-secondary-color);
+
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 
 	.checks-summary {

@@ -3,6 +3,7 @@
 
 	type FlexProps = {
 		children: Snippet<[]>;
+		class?: string;
 		align?: 'center' | 'start' | 'end';
 		direction?: 'row' | 'column';
 		gap?: 2 | 4 | 8 | 16 | 24 | 32;
@@ -22,6 +23,7 @@
 		direction = 'row',
 		align = direction === 'row' ? 'center' : 'start',
 		justify = 'normal',
+		...delegated
 	}: FlexProps = $props();
 </script>
 
@@ -32,6 +34,7 @@
 		`align-${align}`,
 		`direction-${direction}`,
 		`justify-${justify}`,
+		delegated['class'],
 	]}
 >
 	{@render children()}

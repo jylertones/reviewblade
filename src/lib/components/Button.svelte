@@ -44,6 +44,7 @@
 		display: inline-flex;
 		gap: 0.25rem;
 		align-items: center;
+		min-width: fit-content;
 
 		block-size: 2rem;
 		padding-inline: 1rem;
