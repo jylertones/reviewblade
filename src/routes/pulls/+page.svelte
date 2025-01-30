@@ -38,9 +38,9 @@
 	<title>Pull requests</title>
 </svelte:head>
 
-<h1>Pull requests</h1>
-
 <Flex gap={16} direction="column">
+	<h1>Pull requests</h1>
+
 	<PullRequestList
 		title={`My pull requests (${data.myPullRequests.length})`}
 		pullRequests={data.myPullRequests}
