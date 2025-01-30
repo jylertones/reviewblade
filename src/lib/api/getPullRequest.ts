@@ -8,7 +8,9 @@ export type GetPullRequestParams = {
 };
 
 export type PullRequestResponse =
-	Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}']['response']['data'];
+	Endpoints['GET /repos/{owner}/{repo}/pulls/{pull_number}']['response']['data'] & {
+		body_html: string;
+	};
 
 export async function getPullRequest({
 	owner,
@@ -25,7 +27,5 @@ export async function getPullRequest({
 		},
 	});
 
-	return (await response.json()) as PullRequestResponse & {
-		body_html: string;
-	};
+	return (await response.json()) as PullRequestResponse;
 }

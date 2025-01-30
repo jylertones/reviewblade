@@ -47,7 +47,7 @@
 			inline-size: var(--icon-size-large);
 		}
 
-		.status-icon[data-status='changes-requested'] {
+		.status-icon[data-status='changes_requested'] {
 			color: var(--color-warning);
 		}
 

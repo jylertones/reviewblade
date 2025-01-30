@@ -1,20 +1,24 @@
 import type { ReviewResponse } from '$lib/api/getPullReviews';
 import { compareAsc } from 'date-fns';
 import { reviewStateToTyped } from './reviewStateToTyped';
+import type { AwaitingReview } from '$lib/types';
 
 export function getDisplayableReviews(
-	pullRequestReviews: ReviewResponse['data'],
-) {
+	pullRequestReviews: ReviewResponse,
+): AwaitingReview[] {
 	return pullRequestReviews
 		.filter(
 			(review) =>
-				review.body_html ||
-				['APPROVED', 'CHANGES_REQUESTED'].includes(review.state),
+				review.user &&
+				(review.body_html ||
+					['APPROVED', 'CHANGES_REQUESTED'].includes(review.state)),
 		)
 		.map((review) => ({
-			name: review.user.login,
+			name: review.user!.login,
 			state: reviewStateToTyped(review.state),
-			submitted_at: review.submitted_at,
+			submittedAt: review.submitted_at
+				? new Date(review.submitted_at)
+				: new Date(),
 		}))
-		.sort((r1, r2) => compareAsc(r1.submitted_at, r2.submitted_at));
+		.sort((r1, r2) => compareAsc(r2.submittedAt, r1.submittedAt));
 }

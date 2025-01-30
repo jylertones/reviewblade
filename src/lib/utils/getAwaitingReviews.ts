@@ -1,10 +1,5 @@
 import type { PullRequestResponse } from '$lib/api/getPullRequest';
-import type { PullRequestApprovalState } from '$lib/constants/reviews';
-
-type AwaitingReview = {
-	name: string;
-	state: PullRequestApprovalState;
-};
+import type { AwaitingReview } from '$lib/types';
 
 export function getAwaitingReviews(
 	pullRequest: PullRequestResponse,

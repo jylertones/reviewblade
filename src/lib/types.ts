@@ -40,3 +40,9 @@ export type DiffChunk = {
 	leadingLine: string;
 	patch: string;
 };
+
+export type AwaitingReview = {
+	name: string;
+	state: PullRequestApprovalState;
+	submittedAt?: Date;
+};

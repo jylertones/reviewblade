@@ -5,8 +5,6 @@
 	import CheckRunsList from '$lib/components/CheckRunsList.svelte';
 	import Flex from '$lib/components/Flex.svelte';
 	import ReviewFile from '$lib/components/ReviewFile.svelte';
-	import { getAwaitingReviews } from '$lib/utils/getAwaitingReviews';
-	import { getDisplayableReviews } from '$lib/utils/getDisplayableReviews';
 	import type { PageData } from './$types';
 	import {
 		ArrowRight,
@@ -23,6 +21,7 @@
 	import Text from '$lib/components/Text.svelte';
 	import { getPullRequestMergeState } from '$lib/utils/getPullRequestMergeState';
 	import { mergePullRequest } from '$lib/api/mergePullRequest';
+	import { getConsolidatedReviews } from '$lib/utils/getConsolidatedReviews';
 
 	let { data }: { data: PageData } = $props();
 
@@ -56,10 +55,10 @@
 		checksExpanded ? ChevronDown : ChevronRight,
 	);
 
-	const reviews = [
-		...getAwaitingReviews(data.pullRequest),
-		...getDisplayableReviews(data.pullRequestReviews),
-	];
+	const reviews = getConsolidatedReviews(
+		data.pullRequest,
+		data.pullRequestReviews,
+	);
 
 	function handleCopy() {
 		navigator.clipboard.writeText(data.pullRequest.head.ref);
