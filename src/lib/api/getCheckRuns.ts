@@ -11,7 +11,7 @@ export type CheckRunsResponse =
 	Endpoints['GET /repos/{owner}/{repo}/commits/{ref}/check-runs']['response']['data'];
 
 export async function getCheckRuns({ owner, repo, head }: GetCheckRunsParams) {
-	const getCheckSuitesApiUrl = `https://api.github.com/repos/${owner}/${repo}/commits/${head}/check-runs`;
+	const getCheckSuitesApiUrl = `https://api.github.com/repos/${owner}/${repo}/commits/${head}/check-runs?per_page=100`;
 
 	const response = await request({
 		url: getCheckSuitesApiUrl,
