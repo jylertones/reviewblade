@@ -21,9 +21,8 @@
 				<img src={logo} alt="ReviewBlade" height="28" />
 			</a>
 			{#if needsSetup}
-				<a href="/" class="right">Setup</a>
+				<a href="/about" class="right">Setup</a>
 			{:else}
-				<a href="/">Home</a>
 				<a href="/pulls">Pull Requests</a>
 				<a href="/settings" class="right">Settings</a>
 			{/if}
