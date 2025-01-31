@@ -47,5 +47,20 @@
 			list-style: none;
 			padding-inline-start: 1rem;
 		}
+
+		.width-fit {
+			max-inline-size: 100%;
+		}
+
+		.details-reset {
+			background-color: var(--background-color-secondary);
+			border: 1px solid var(--border-color);
+			border-radius: var(--border-radius);
+			padding: 1rem;
+		}
+
+		summary {
+			padding-block-end: 0.5rem;
+		}
 	}
 </style>
