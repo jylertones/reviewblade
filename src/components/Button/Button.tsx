@@ -1,5 +1,4 @@
 import { JSX, Show } from "solid-js";
-import "./Button.css";
 import { Dynamic } from "solid-js/web";
 import classNames from "classnames";
 import LoaderCircle from "lucide-solid/icons/loader-circle";

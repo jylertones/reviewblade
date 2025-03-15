@@ -1,4 +1,6 @@
-export const baseTheme = {
+import { createGlobalTheme } from "@vanilla-extract/css";
+
+export const baseTheme = createGlobalTheme(":root", {
   border: {
     width: "2px",
     radius: "0.5rem",
@@ -57,4 +59,4 @@ export const baseTheme = {
   layout: {
     width: "60rem",
   },
-};
+});

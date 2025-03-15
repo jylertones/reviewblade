@@ -1,8 +1,8 @@
 import { style } from "@vanilla-extract/css";
-import { themeVars } from "~/styles/theme/darkTheme.css";
+// import { baseTheme } from "../../styles/theme/baseTheme.css";
 
 export const layoutWrapper = style({
   margin: 0,
-  inlineSize: themeVars.layout.width,
+  // inlineSize: baseTheme.layout.width,
   maxInlineSize: "90vw",
 });

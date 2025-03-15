@@ -1,10 +1,7 @@
-import { createTheme } from "@vanilla-extract/css";
+import { createGlobalTheme } from "@vanilla-extract/css";
 import { color } from "../tokens/colors";
-import { baseTheme } from "../tokens/baseTheme";
 
-export const [darkThemeClass, themeVars] = createTheme({
-  // ...baseTheme,
-
+export const colorTheme = createGlobalTheme(":root", {
   background: {
     primary: color.primary[80],
     secondary: color.primary[90],
@@ -12,7 +9,6 @@ export const [darkThemeClass, themeVars] = createTheme({
   },
 
   text: {
-    ...baseTheme.text,
     primary: color.primary[10],
     secondary: color.primary[30],
     link: color.primary[30],
