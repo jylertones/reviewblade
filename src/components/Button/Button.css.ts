@@ -1,6 +1,4 @@
 import { keyframes, style, styleVariants } from "@vanilla-extract/css";
-import { baseTheme } from "~/styles/theme/baseTheme.css";
-import { colorTheme } from "~/styles/theme/darkTheme.css";
 
 export const button = style({
   display: "inline-flex",
@@ -11,28 +9,28 @@ export const button = style({
   blockSize: "2rem",
   paddingInline: "1rem",
 
-  backgroundColor: colorTheme.button.default.backgroundColor,
-  border: `1px solid ${colorTheme.button.default.borderColor}`,
-  borderRadius: baseTheme.border.radius,
+  backgroundColor: "var(--button-default-background-color)",
+  border: `1px solid var(--button-default-border-color)`,
+  borderRadius: "var(--border-radius)",
 
-  color: colorTheme.button.default.color,
+  color: "var(--button-default-color)",
 
   ":hover": {
     textDecoration: "none",
-    backgroundColor: colorTheme.button.default.hover.backgroundColor,
+    backgroundColor: "var(--button-default-hover-background-color)",
     cursor: "pointer",
   },
 });
 
 export const variantVariants = styleVariants({
   primary: {
-    backgroundColor: colorTheme.button.primary.backgroundColor,
-    border: `1px solid ${colorTheme.button.primary.borderColor}`,
-    color: colorTheme.button.primary.color,
+    backgroundColor: "var(--button-primary-background-color)",
+    border: `1px solid var(--button-primary-border-color)`,
+    color: "var(--button-primary-color)",
     fontWeight: "medium",
 
     ":hover": {
-      backgroundColor: colorTheme.button.primary.hover.backgroundColor,
+      backgroundColor: "var(--button-primary-hover-background-color)",
     },
   },
   icon: {
@@ -42,7 +40,7 @@ export const variantVariants = styleVariants({
     justifyContent: "center",
     border: 0,
     backgroundColor: "transparent",
-    color: colorTheme.button.default.color,
+    color: "var(--button-default-color)",
   },
   default: {},
 });

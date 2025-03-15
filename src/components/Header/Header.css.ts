@@ -1,14 +1,12 @@
 import { style } from "@vanilla-extract/css";
-import { baseTheme } from "~/styles/theme/baseTheme.css";
-import { colorTheme } from "~/styles/theme/darkTheme.css";
 
 export const navWrapper = style({
-  backgroundColor: colorTheme.background.secondary,
+  backgroundColor: "var(--background-color-secondary)",
 });
 
 export const layoutWrapper = style({
-  margin: 0,
-  inlineSize: baseTheme.layout.width,
+  margin: "0 auto",
+  inlineSize: "var(--layout-width)",
   maxInlineSize: "90vw",
 });
 
@@ -18,7 +16,7 @@ export const nav = style({
   alignItems: "center",
   paddingBlock: "0.5rem",
   justifyItems: "space-between",
-  maxInlineSize: baseTheme.layout.width,
+  maxInlineSize: "var(--layout-width)",
   margin: "0 auto",
 });
 

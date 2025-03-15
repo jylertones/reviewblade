@@ -12,7 +12,7 @@ export function Label({ children, ...delegatedProps }: LabelProps) {
   return (
     <label
       {...delegatedProps}
-      class={classNames("label", delegatedProps["class"])}
+      class={classNames(styles.label, delegatedProps["class"])}
     >
       {children}
     </label>
