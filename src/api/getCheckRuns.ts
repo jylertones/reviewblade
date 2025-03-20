@@ -1,6 +1,10 @@
 import { RestEndpointMethodTypes } from "@octokit/plugin-rest-endpoint-methods";
-import { createQuery } from "@tanstack/solid-query";
-import { CheckRunsRequest, CheckRunsResponse } from "~/types/types";
+import {
+  createQuery,
+  DefinedInitialDataOptions,
+  UndefinedInitialDataOptions,
+} from "@tanstack/solid-query";
+import { CheckRunsRequest, CheckRunsResponse } from "~/types/api";
 import { octokit } from "~/utils/octokit";
 import { QueryKeys } from "~/utils/queryKeys";
 
@@ -17,14 +21,18 @@ import { QueryKeys } from "~/utils/queryKeys";
 //   return (await response.json()) as CheckRunsResponse;
 // }
 
-export function getCheckRuns(params: CheckRunsRequest) {
+export function getCheckRuns(
+  params: CheckRunsRequest,
+  queryOptions?: { enabled?: boolean },
+) {
   return createQuery<CheckRunsResponse>(() => ({
     queryKey: [QueryKeys.CHECK_RUNS, params],
     queryFn: async () =>
-      await octokit.rest.checks.listSuitesForRef({
+      await octokit.rest.checks.listForRef({
         owner: params.owner,
         repo: params.repo,
         ref: params.ref,
       }),
+    enabled: queryOptions?.enabled,
   }));
 }

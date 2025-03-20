@@ -1,7 +1,4 @@
-import {
-  MergePullRequestRequest,
-  MergePullRequestResponse,
-} from "~/types/types";
+import { MergePullRequestRequest, MergePullRequestResponse } from "~/types/api";
 import { createMutation } from "@tanstack/solid-query";
 import { octokit } from "~/utils/octokit";
 

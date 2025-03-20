@@ -2,7 +2,7 @@ import { createQuery } from "@tanstack/solid-query";
 import {
   PullRequestReviewsRequest,
   PullRequestReviewsResponse,
-} from "~/types/types";
+} from "~/types/api";
 import { octokit } from "~/utils/octokit";
 import { QueryKeys } from "~/utils/queryKeys";
 
@@ -27,9 +27,13 @@ import { QueryKeys } from "~/utils/queryKeys";
 //   return (await response.json()) as ReviewResponse;
 // }
 
-export function getPullReviews(params: PullRequestReviewsRequest) {
+export function getPullReviews(
+  params: PullRequestReviewsRequest,
+  queryParams?: { enabled?: boolean },
+) {
   return createQuery<PullRequestReviewsResponse>(() => ({
     queryKey: [QueryKeys.PULL_REVIEWS, params],
     queryFn: async () => await octokit.rest.pulls.listReviews(params),
+    ...queryParams,
   }));
 }

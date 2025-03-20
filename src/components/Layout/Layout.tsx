@@ -8,7 +8,7 @@ export type LayoutProps = {
   children?: JSX.Element;
 };
 
-export function Layout({ children }: LayoutProps) {
+export function Layout(props: LayoutProps) {
   return (
     <>
       <Title>ReviewBlade Solid</Title>
@@ -16,7 +16,7 @@ export function Layout({ children }: LayoutProps) {
         <Header />
 
         <div class={classNames(styles.layoutWrapper)}>
-          <main>{children}</main>
+          <main>{props.children}</main>
         </div>
       </Suspense>
     </>

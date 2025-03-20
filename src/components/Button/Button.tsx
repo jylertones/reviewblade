@@ -20,24 +20,19 @@ export type ButtonProps = {
 };
 
 export function Button(props: ButtonProps) {
-  const {
-    type = "button",
-    variant = "default",
-    loading,
-    children,
-    ...delegatedProps
-  } = props;
-
   return (
     <Dynamic
-      component={type}
-      class={classNames(styles.button, styles.variantVariants[variant])}
-      {...delegatedProps}
+      component={props.type ?? "button"}
+      class={classNames(
+        styles.button,
+        styles.variantVariants[props.variant ?? "default"],
+      )}
+      {...props}
     >
-      <Show when={loading}>
+      <Show when={props.loading}>
         <LoaderCircle class={styles.rotate} />
       </Show>
-      {children}
+      {props.children}
     </Dynamic>
   );
 }

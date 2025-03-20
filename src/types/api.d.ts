@@ -1,10 +1,10 @@
 import { RestEndpointMethodTypes } from "@octokit/plugin-rest-endpoint-methods";
 
 export type CheckRunsRequest =
-  RestEndpointMethodTypes["checks"]["listSuitesForRef"]["parameters"];
+  RestEndpointMethodTypes["checks"]["listForRef"]["parameters"];
 export type CheckRunsResponse =
-  RestEndpointMethodTypes["checks"]["listSuitesForRef"]["response"];
-export type CheckRuns = CheckRunsResponse["data"]["check_suites"];
+  RestEndpointMethodTypes["checks"]["listForRef"]["response"];
+export type CheckRuns = CheckRunsResponse["data"]["check_runs"];
 export type CheckRun = CheckRuns[0];
 
 export type CompareRequest =
@@ -17,7 +17,7 @@ export type PullRequestRequest =
   RestEndpointMethodTypes["pulls"]["get"]["parameters"];
 export type PullRequestResponse =
   RestEndpointMethodTypes["pulls"]["get"]["response"];
-export type PullRequest = PullRequestResponse["data"];
+export type PullRequest = PullRequestResponse["data"] & { body_html?: string };
 
 export type PullRequestCommentsRequest =
   RestEndpointMethodTypes["pulls"]["listReviewComments"]["parameters"];

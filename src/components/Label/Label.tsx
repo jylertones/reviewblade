@@ -8,13 +8,10 @@ export type LabelProps = {
   class?: string;
 };
 
-export function Label({ children, ...delegatedProps }: LabelProps) {
+export function Label(props: LabelProps) {
   return (
-    <label
-      {...delegatedProps}
-      class={classNames(styles.label, delegatedProps["class"])}
-    >
-      {children}
+    <label {...props} class={classNames(styles.label, props["class"])}>
+      {props.children}
     </label>
   );
 }

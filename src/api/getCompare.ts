@@ -1,7 +1,7 @@
 import { createQuery } from "@tanstack/solid-query";
 import { QueryKeys } from "~/utils/queryKeys";
 import { octokit } from "~/utils/octokit";
-import { CompareRequest, CompareResponse } from "~/types/types";
+import { CompareRequest, CompareResponse } from "~/types/api";
 
 export type GetCompareParams = {
   owner: string;

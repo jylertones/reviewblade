@@ -1,5 +1,5 @@
 import invariant from "invariant";
-import { SearchPullRequestListItem } from "~/types/types";
+import { SearchPullRequestListItem } from "~/types/api";
 
 export function getRepoPathFromPullRequest(
   pullRequest: SearchPullRequestListItem,

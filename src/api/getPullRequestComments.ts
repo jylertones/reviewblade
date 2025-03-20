@@ -1,7 +1,7 @@
 import {
   PullRequestCommentsRequest,
   PullRequestCommentsResponse,
-} from "~/types/types";
+} from "~/types/api";
 import { createQuery } from "@tanstack/solid-query";
 import { QueryKeys } from "~/utils/queryKeys";
 import { octokit } from "~/utils/octokit";
@@ -33,9 +33,13 @@ import { octokit } from "~/utils/octokit";
 //   return (await response.json()) as PullRequestCommentsResponse;
 // }
 
-export function getPullRequestComments(params: PullRequestCommentsRequest) {
+export function getPullRequestComments(
+  params: PullRequestCommentsRequest,
+  queryParams?: { enabled?: boolean },
+) {
   return createQuery<PullRequestCommentsResponse>(() => ({
     queryKey: [QueryKeys.PULL_REQUEST_COMMENTS, params],
     queryFn: async () => await octokit.rest.pulls.listReviewComments(params),
+    ...queryParams,
   }));
 }

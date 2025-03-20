@@ -33,6 +33,7 @@
     "date-fns": "^4.1.0",
     "invariant": "^2.2.4",
     "lucide-solid": "^0.477.0",
-    "octokit": "^4.1.2"
+    "octokit": "^4.1.2",
+    "shiki": "^3.2.1"
   }
 }

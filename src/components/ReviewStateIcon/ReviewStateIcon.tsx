@@ -23,18 +23,21 @@ const mapApprovalStateToDisplay: Record<
   ["approved"]: { label: "Approved", icon: BadgeCheck },
 };
 
-export function ReviewStateIcon({ state }: ReviewStateIconProps) {
-  const Icon = mapApprovalStateToDisplay[state].icon;
+export function ReviewStateIcon(props: ReviewStateIconProps) {
+  const Icon = mapApprovalStateToDisplay[props.state].icon;
 
   return (
     <span
-      title={mapApprovalStateToDisplay[state].label}
+      title={mapApprovalStateToDisplay[props.state].label}
       class={styles.iconWrapper}
     >
       <Dynamic
         component={Icon}
-        class={classNames(styles.statusIcon, styles.statusIconVariants[state])}
-        aria-label={mapApprovalStateToDisplay[state].label}
+        class={classNames(
+          styles.statusIcon,
+          styles.statusIconVariants[props.state],
+        )}
+        aria-label={mapApprovalStateToDisplay[props.state].label}
       />
     </span>
   );

@@ -12,34 +12,29 @@ export type PullRequestListProps = {
   noRequestsMessage: string;
 };
 
-export function PullRequestList({
-  isError,
-  noRequestsMessage,
-  pullRequests,
-  title,
-}: PullRequestListProps) {
+export function PullRequestList(props: PullRequestListProps) {
   return (
     <>
-      <Show when={isError}>
+      <Show when={props.isError}>
         <div>
           <h2>There was an error retrieving pull requests</h2>
         </div>
       </Show>
 
       <div class={styles.wrapper}>
-        <Show when={title}>
-          <div class={styles.header}>{title}</div>
+        <Show when={props.title}>
+          <div class={styles.header}>{props.title}</div>
         </Show>
         <Show
-          when={pullRequests.length > 0}
+          when={props.pullRequests.length > 0}
           fallback={
             <div class={styles.noRequestsMessage}>
-              <p>{noRequestsMessage}</p>
+              <p>{props.noRequestsMessage}</p>
             </div>
           }
         >
           <ul class={styles.list}>
-            <For each={pullRequests}>
+            <For each={props.pullRequests}>
               {(pr) => <PullRequestListItem pullRequest={pr} />}
             </For>
           </ul>

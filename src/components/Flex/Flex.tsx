@@ -19,26 +19,19 @@ export type FlexProps = {
 };
 
 export function Flex(props: FlexProps) {
-  const {
-    children,
-    gap,
-    direction = "row",
-    align = direction === "row" ? "center" : "start",
-    justify = "normal",
-    ...delegated
-  } = props;
-
   return (
     <div
       class={classNames(
         styles.flex,
-        gap && styles.gapVariants[gap],
-        styles.alignVariants[align],
-        styles.directionVariants[direction],
-        delegated["class"],
+        props.gap && styles.gapVariants[props.gap],
+        styles.alignVariants[
+          props.align ?? (props.direction === "row" ? "center" : "start")
+        ],
+        styles.directionVariants[props.direction ?? "row"],
+        props["class"],
       )}
     >
-      {children}
+      {props.children}
     </div>
   );
 }

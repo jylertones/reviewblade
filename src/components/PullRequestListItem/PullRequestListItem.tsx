@@ -10,17 +10,18 @@ import { formatDistance } from "date-fns";
 import { ReviewStateIcon } from "../ReviewStateIcon/ReviewStateIcon";
 
 import * as styles from "./PullRequestListItem.css";
+import { A } from "@solidjs/router";
 
 type PullRequestListItemProps = {
   pullRequest: SearchPullRequestListItem;
 };
 
-export function PullRequestListItem({ pullRequest }: PullRequestListItemProps) {
-  const { owner, repo } = getRepoPathFromPullRequest(pullRequest);
+export function PullRequestListItem(props: PullRequestListItemProps) {
+  const { owner, repo } = getRepoPathFromPullRequest(props.pullRequest);
   const pullReviewsQuery = getPullReviews({
     owner,
     repo,
-    pull_number: pullRequest.number,
+    pull_number: props.pullRequest.number,
   });
 
   const pullReviewState = createMemo(() =>
@@ -47,32 +48,31 @@ export function PullRequestListItem({ pullRequest }: PullRequestListItemProps) {
 
       <div class={styles.stack}>
         <div class={styles.title}>
-          <a
-            href={`/pull/${owner}/${repo}/${pullRequest.number}`}
+          <A
+            href={`/pull/${owner}/${repo}/${props.pullRequest.number}`}
             data-keyboard-focusable
           >
-            {pullRequest.title}
-          </a>
+            {props.pullRequest.title}
+          </A>
         </div>
         <div class={styles.secondLine}>
           Created{" "}
-          {formatDistance(new Date(pullRequest.created_at), new Date(), {
+          {formatDistance(new Date(props.pullRequest.created_at), new Date(), {
             addSuffix: true,
           })}{" "}
-          by
-          {pullRequest.user?.login}
+          by {props.pullRequest.user?.login}
         </div>
       </div>
 
       <div class={styles.right}>
         <Flex gap={16} align="center">
-          <Show when={pullRequest.comments > 0}>
+          <Show when={props.pullRequest.comments > 0}>
             <Flex gap={4} align="center">
               <MessageSquare class={styles.messageSquare} />
-              <span>{pullRequest.comments}</span>
+              <span>{props.pullRequest.comments}</span>
             </Flex>
           </Show>
-          <a href={pullRequest.html_url}>
+          <a href={props.pullRequest.html_url}>
             <Github class={styles.gitHubLink} />
           </a>
         </Flex>

@@ -1,4 +1,4 @@
-import { PullRequestRequest, PullRequestResponse } from "~/types/types";
+import { PullRequestRequest, PullRequestResponse } from "~/types/api";
 import { createQuery } from "@tanstack/solid-query";
 import { QueryKeys } from "~/utils/queryKeys";
 import { octokit } from "~/utils/octokit";
@@ -35,6 +35,10 @@ import { octokit } from "~/utils/octokit";
 export function getPullRequest(params: PullRequestRequest) {
   return createQuery<PullRequestResponse>(() => ({
     queryKey: [QueryKeys.PULL_REQUEST, params],
-    queryFn: async () => await octokit.rest.pulls.get(params),
+    queryFn: async () =>
+      await octokit.rest.pulls.get({
+        ...params,
+        mediaType: { format: "full" },
+      }),
   }));
 }

@@ -9,22 +9,17 @@ export type TextProps = {
   variant?: "default" | "subtle";
 };
 
-export function Text({
-  size = "p2",
-  variant = "default",
-  children,
-  ...delegated
-}: TextProps) {
+export function Text(props: TextProps) {
   return (
     <p
       class={classNames(
-        delegated["class"],
+        props["class"],
         styles.p,
-        styles.sizeVariants[size],
-        styles.variantVariants[variant],
+        styles.sizeVariants[props.size ?? "p2"],
+        styles.variantVariants[props.variant ?? "default"],
       )}
     >
-      {children}
+      {props.children}
     </p>
   );
 }
