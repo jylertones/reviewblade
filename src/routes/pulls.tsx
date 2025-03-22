@@ -28,7 +28,7 @@ export default function PullsPage() {
         />
       </Suspense>
 
-      <Suspense fallback={<Text>Loading code reviews</Text>}>
+      <Suspense>
         <PullRequestList
           title={`My reviews (${myReviewPullRequestsQuery.data?.data.total_count})`}
           pullRequests={myReviewPullRequestsQuery.data?.data.items ?? []}
