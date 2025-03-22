@@ -14,7 +14,7 @@ export type HighlightedCodeProps = {
 export function HighlightedCode(props: HighlightedCodeProps) {
   let patchElement: HTMLElement;
 
-  onMount(() =>
+  onMount(() => {
     codeToHtml(props.code, {
       theme: "tokyo-night",
       colorReplacements: {
@@ -44,14 +44,14 @@ export function HighlightedCode(props: HighlightedCodeProps) {
       if (patchElement) {
         patchElement.innerHTML = html;
       }
-    }),
-  );
+    });
+  });
 
   return (
     <>
       <code class={styles.header}>{props.header}</code>
       <code
-        ref={patchElement}
+        ref={(el) => (patchElement = el)}
         class={styles.code}
         style={`counter-set: lineNumber ${props.firstLineNumber ? props.firstLineNumber - 1 : 1}`}
       >

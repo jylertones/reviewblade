@@ -21,7 +21,7 @@ export type PullRequestDiscussionProps = {
 export function PullRequestDiscussionSection(
   props: PullRequestDiscussionProps,
 ) {
-  const reviewsQuery = () =>
+  const reviewsQuery = createMemo(() =>
     getPullReviews(
       {
         owner: props.owner,
@@ -33,8 +33,9 @@ export function PullRequestDiscussionSection(
         enabled:
           props.pullNumber !== undefined && Number.isInteger(props.pullNumber),
       },
-    );
-  const commentsQuery = () =>
+    ),
+  );
+  const commentsQuery = createMemo(() =>
     getPullRequestComments(
       {
         owner: props.owner,
@@ -46,14 +47,15 @@ export function PullRequestDiscussionSection(
         enabled:
           props.pullNumber !== undefined && Number.isInteger(props.pullNumber),
       },
-    );
+    ),
+  );
 
   const [isSectionExpanded, setIsSectionExpanded] = createSignal(false);
 
   const combinedComments = createMemo(() =>
     combineReviewsAndComments(
-      reviewsQuery().data?.data ?? [],
-      commentsQuery().data?.data ?? [],
+      reviewsQuery?.().data?.data ?? [],
+      commentsQuery?.().data?.data ?? [],
     ),
   );
 
