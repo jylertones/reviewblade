@@ -54,8 +54,8 @@ export function PullRequestDiscussionSection(
 
   const combinedComments = createMemo(() =>
     combineReviewsAndComments(
-      reviewsQuery?.().data?.data ?? [],
-      commentsQuery?.().data?.data ?? [],
+      reviewsQuery()?.data?.data ?? [],
+      commentsQuery()?.data?.data ?? [],
     ),
   );
 
