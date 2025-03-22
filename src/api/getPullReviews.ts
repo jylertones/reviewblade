@@ -5,6 +5,7 @@ import {
 } from "~/types/api";
 import { octokit } from "~/utils/octokit";
 import { QueryKeys } from "~/utils/queryKeys";
+import { fiveMinutesMs } from "~/utils/staleTimes";
 
 // export type ReviewParameters =
 //   Endpoints["GET /repos/{owner}/{repo}/pulls/{pull_number}/reviews"]["parameters"];
@@ -34,6 +35,7 @@ export function getPullReviews(
   return createQuery<PullRequestReviewsResponse>(() => ({
     queryKey: [QueryKeys.PULL_REVIEWS, params],
     queryFn: async () => await octokit.rest.pulls.listReviews(params),
+    staleTime: fiveMinutesMs,
     ...queryParams,
   }));
 }

@@ -7,6 +7,7 @@ import {
 import { CheckRunsRequest, CheckRunsResponse } from "~/types/api";
 import { octokit } from "~/utils/octokit";
 import { QueryKeys } from "~/utils/queryKeys";
+import { oneMinuteMs } from "~/utils/staleTimes";
 
 // export async function _getCheckRuns({ owner, repo, ref }: GetCheckRunsParams) {
 //   return;
@@ -34,5 +35,6 @@ export function getCheckRuns(
         ref: params.ref,
       }),
     enabled: queryOptions?.enabled,
+    staleTime: oneMinuteMs,
   }));
 }

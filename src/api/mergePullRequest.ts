@@ -1,6 +1,7 @@
 import { MergePullRequestRequest, MergePullRequestResponse } from "~/types/api";
-import { createMutation } from "@tanstack/solid-query";
+import { createMutation, useQueryClient } from "@tanstack/solid-query";
 import { octokit } from "~/utils/octokit";
+import { QueryKeys } from "~/utils/queryKeys";
 
 // export type MergePullRequestParams = {
 //   owner: string;
@@ -27,6 +28,8 @@ import { octokit } from "~/utils/octokit";
 // }
 
 export function mergePullRequest() {
+  const queryClient = useQueryClient();
+
   return createMutation<
     MergePullRequestResponse,
     Error,
@@ -34,5 +37,13 @@ export function mergePullRequest() {
   >(() => ({
     mutationFn: async (params: MergePullRequestRequest) =>
       await octokit.rest.pulls.merge(params),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.PULL_REQUEST],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.SEARCH_PULL_REQUESTS],
+      });
+    },
   }));
 }

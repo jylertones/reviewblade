@@ -2,6 +2,7 @@ import { PullRequestRequest, PullRequestResponse } from "~/types/api";
 import { createQuery } from "@tanstack/solid-query";
 import { QueryKeys } from "~/utils/queryKeys";
 import { octokit } from "~/utils/octokit";
+import { fiveMinutesMs } from "~/utils/staleTimes";
 
 // export type GetPullRequestParams = {
 //   owner: string;
@@ -40,5 +41,6 @@ export function getPullRequest(params: PullRequestRequest) {
         ...params,
         mediaType: { format: "full" },
       }),
+    staleTime: fiveMinutesMs,
   }));
 }

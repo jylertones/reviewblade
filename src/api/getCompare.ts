@@ -2,6 +2,7 @@ import { createQuery } from "@tanstack/solid-query";
 import { QueryKeys } from "~/utils/queryKeys";
 import { octokit } from "~/utils/octokit";
 import { CompareRequest, CompareResponse } from "~/types/api";
+import { fiveMinutesMs } from "~/utils/staleTimes";
 
 export type GetCompareParams = {
   owner: string;
@@ -40,5 +41,6 @@ export function getCompare(
         head: params.head,
       }),
     enabled: queryParams?.enabled,
+    staleTime: fiveMinutesMs,
   }));
 }

@@ -2,9 +2,10 @@ import { createQuery } from "@tanstack/solid-query";
 import {
   SearchPullRequestListRequest,
   SearchPullRequestListResponse,
-} from "~/types/types";
+} from "~/types/api";
 import { octokit } from "~/utils/octokit";
 import { QueryKeys } from "~/utils/queryKeys";
+import { fiveMinutesMs } from "~/utils/staleTimes";
 
 // export type PullRequestParameters =
 //   Endpoints["GET /search/issues"]["parameters"];
@@ -27,5 +28,6 @@ export function getSearchPullRequests(params: SearchPullRequestListRequest) {
     queryKey: [QueryKeys.SEARCH_PULL_REQUESTS, params],
     queryFn: async () =>
       await octokit.rest.search.issuesAndPullRequests(params),
+    staleTime: fiveMinutesMs,
   }));
 }

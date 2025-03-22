@@ -5,6 +5,7 @@ import {
 import { createQuery } from "@tanstack/solid-query";
 import { QueryKeys } from "~/utils/queryKeys";
 import { octokit } from "~/utils/octokit";
+import { fiveMinutesMs } from "~/utils/staleTimes";
 
 // export type GetPullRequsetCommentsParams = {
 //   owner: string;
@@ -40,6 +41,7 @@ export function getPullRequestComments(
   return createQuery<PullRequestCommentsResponse>(() => ({
     queryKey: [QueryKeys.PULL_REQUEST_COMMENTS, params],
     queryFn: async () => await octokit.rest.pulls.listReviewComments(params),
+    staleTime: fiveMinutesMs,
     ...queryParams,
   }));
 }
