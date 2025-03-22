@@ -14,7 +14,7 @@ export function CheckRunsSummary(props: CheckRunsSummaryProps) {
   const groupedRuns = createMemo(() => {
     const sortedRuns = sortCheckRuns(props.checkRuns ?? []);
 
-    return sortedRuns.reduce((acc, run) => {
+    const reducedRuns = sortedRuns.reduce((acc, run) => {
       const key = `${run.status}-${run.conclusion}`;
       if (!acc.has(key)) {
         acc.set(key, []);
@@ -24,6 +24,10 @@ export function CheckRunsSummary(props: CheckRunsSummaryProps) {
 
       return acc;
     }, new Map<string, CheckRun[]>());
+
+    console.log({ sortedRuns, reducedRuns });
+
+    return reducedRuns;
   });
 
   return (

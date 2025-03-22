@@ -55,9 +55,13 @@ const mapCheckRunStateToDisplay: Record<
 };
 
 export function CheckRunsIcon(props: ReviewStateIconProps) {
-  const Icon = mapCheckRunStateToDisplay[props.status].icon;
-  const label =
-    mapCheckRunConclusionToDisplay[props.conclusion ?? "neutral"].label;
+  const displayProps =
+    props.status === "completed" && props.conclusion !== null
+      ? mapCheckRunConclusionToDisplay[props.conclusion]
+      : mapCheckRunStateToDisplay[props.status];
+
+  const label = displayProps.label;
+  const Icon = displayProps.icon;
 
   return (
     <span title={label} class={styles.wrapper}>

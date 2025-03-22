@@ -1,7 +1,7 @@
 import { CheckRun } from "~/types/api";
 
 export function sortCheckRuns(checkRuns: CheckRun[]): CheckRun[] {
-  return checkRuns.sort((runA, runB) => {
+  return Array.from(checkRuns).sort((runA, runB) => {
     if (runA.conclusion === "failure" && runB.conclusion !== "failure") {
       return -1;
     }
