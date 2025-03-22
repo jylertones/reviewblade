@@ -12,6 +12,7 @@ export type CompareRequest =
 export type CompareResponse =
   RestEndpointMethodTypes["repos"]["compareCommits"]["response"];
 export type Compare = CompareResponse["data"];
+export type File = NonNullable<Compare["files"]>[0];
 
 export type PullRequestRequest =
   RestEndpointMethodTypes["pulls"]["get"]["parameters"];

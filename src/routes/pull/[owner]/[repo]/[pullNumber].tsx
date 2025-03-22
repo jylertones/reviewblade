@@ -30,6 +30,7 @@ import { Dynamic } from "solid-js/web";
 import { CheckRunsList } from "~/components/CheckRunsList/CheckRunsList";
 import { ApprovalsSummary } from "~/components/ApprovalsSummary/ApprovalsSummary";
 import { PullRequestDiscussionSection } from "~/components/PullRequestDiscussionSection/PullRequestDiscussionSection";
+import { PullRequestDiff } from "~/components/PullRequestDiff/PullRequestDiff";
 
 type Status = "open" | "closed" | "merged" | "draft";
 const statusMap: Record<
@@ -253,17 +254,15 @@ export default function PullRequestDetail() {
 
       <section>
         <h2>Files</h2>
-        {/* {#await data.pullRequestDiff}
-		Loading diff...
-	{:then diff}
-		<Flex direction="column" gap={16}>
-			{#each diff.files ?? [] as file}
-				<ReviewFile {file} />
-			{/each}
-		</Flex>
-	{:catch error}
-		Error loading diff: {error.message}
-	{/await} */}
+
+        <Suspense>
+          <PullRequestDiff
+            owner={params.owner}
+            repo={params.repo}
+            base={pullRequest()?.base.sha}
+            head={pullRequest()?.head.sha}
+          />
+        </Suspense>
       </section>
     </>
   );

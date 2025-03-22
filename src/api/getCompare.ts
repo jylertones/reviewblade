@@ -26,7 +26,10 @@ export type GetCompareParams = {
 //   return (await response.json()) as CompareResponse;
 // }
 
-export function getCompare(params: CompareRequest) {
+export function getCompare(
+  params: CompareRequest,
+  queryParams?: { enabled: boolean },
+) {
   return createQuery<CompareResponse>(() => ({
     queryKey: [QueryKeys.COMPARE, params],
     queryFn: async () =>
@@ -36,5 +39,6 @@ export function getCompare(params: CompareRequest) {
         base: params.base,
         head: params.head,
       }),
+    enabled: queryParams?.enabled,
   }));
 }

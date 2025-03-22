@@ -8,6 +8,7 @@ export const wrapper = style({
 
 export const header = style({
   backgroundColor: "var(--background-color-secondary)",
+  padding: "1rem",
 });
 
 export const list = style({

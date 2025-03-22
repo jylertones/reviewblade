@@ -21,23 +21,32 @@ export type PullRequestDiscussionProps = {
 export function PullRequestDiscussionSection(
   props: PullRequestDiscussionProps,
 ) {
-  const reviewsQuery = createMemo(() =>
-    getPullReviews({
-      owner: props.owner,
-      repo: props.repo,
-      pull_number: props.pullNumber,
-      mediaType: { format: "full" },
-    }),
-  );
-
-  const commentsQuery = createMemo(() =>
-    getPullRequestComments({
-      owner: props.owner,
-      repo: props.repo,
-      pull_number: props.pullNumber,
-      mediaType: { format: "full" },
-    }),
-  );
+  const reviewsQuery = () =>
+    getPullReviews(
+      {
+        owner: props.owner,
+        repo: props.repo,
+        pull_number: props.pullNumber,
+        mediaType: { format: "full" },
+      },
+      {
+        enabled:
+          props.pullNumber !== undefined && Number.isInteger(props.pullNumber),
+      },
+    );
+  const commentsQuery = () =>
+    getPullRequestComments(
+      {
+        owner: props.owner,
+        repo: props.repo,
+        pull_number: props.pullNumber,
+        mediaType: { format: "full" },
+      },
+      {
+        enabled:
+          props.pullNumber !== undefined && Number.isInteger(props.pullNumber),
+      },
+    );
 
   const [isSectionExpanded, setIsSectionExpanded] = createSignal(false);
 
