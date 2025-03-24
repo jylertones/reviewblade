@@ -74,9 +74,18 @@ export default function PullRequestDetail() {
     if (pullRequest()?.state === "closed") return "closed";
     return "open";
   };
+
   const isNextStepToMerge = () => pullRequest()?.state === "open";
   const mergeState = () =>
     getPullRequestMergeState({ pullRequest: pullRequest() });
+
+  createEffect(() => {
+    if (mergeState() === "unknown") {
+      setTimeout(() => {
+        pullRequestQuery.refetch();
+      }, 1000);
+    }
+  });
 
   function handleCopy() {
     const ref = pullRequest()?.head.ref;
@@ -157,10 +166,17 @@ export default function PullRequestDetail() {
                 <h2>Merge</h2>
                 <Switch
                   fallback={
-                    <Text>
-                      This merge request cannot be merged because it is blocked:{" "}
-                      {mergeState()}
-                    </Text>
+                    <>
+                      <Show when={mergeState() === "unknown"}>
+                        <Text>Checking merge state...</Text>
+                      </Show>
+                      <Show when={mergeState() !== "unknown"}>
+                        <Text>
+                          This merge request cannot be merged because it is
+                          blocked: {mergeState()}
+                        </Text>
+                      </Show>
+                    </>
                   }
                 >
                   <Match when={mergeState() === "ready"}>

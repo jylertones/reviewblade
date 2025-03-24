@@ -25,8 +25,6 @@ export function CheckRunsSummary(props: CheckRunsSummaryProps) {
       return acc;
     }, new Map<string, CheckRun[]>());
 
-    console.log({ sortedRuns, reducedRuns });
-
     return reducedRuns;
   });
 
