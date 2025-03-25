@@ -13,6 +13,7 @@ export const button = style({
   border: `1px solid var(--button-default-border-color)`,
   borderRadius: "var(--border-radius)",
 
+  fontSize: "var(--font-body-size-2)",
   color: "var(--button-default-color)",
 
   ":hover": {

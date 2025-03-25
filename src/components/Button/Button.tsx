@@ -7,7 +7,7 @@ import * as styles from "./Button.css";
 export type ButtonProps = {
   type?: "button" | "submit";
   variant?: "primary" | "default" | "icon";
-  onClick?: (event: SubmitEvent) => void;
+  onClick?: (event: Event) => void;
   href?: string;
   children: JSX.Element;
   loading?: boolean;
@@ -22,7 +22,7 @@ export type ButtonProps = {
 export function Button(props: ButtonProps) {
   return (
     <Dynamic
-      component={props.type ?? "button"}
+      component={props.href !== "undefined" ? "a" : "button"}
       class={classNames(
         styles.button,
         styles.variantVariants[props.variant ?? "default"],
