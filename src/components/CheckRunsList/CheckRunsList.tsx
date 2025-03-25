@@ -1,4 +1,4 @@
-import { For } from "solid-js";
+import { For, Show } from "solid-js";
 import { CheckRun } from "~/types/api";
 import { sortCheckRuns } from "~/utils/sortCheckRuns";
 import { Flex } from "../Flex/Flex";
@@ -18,15 +18,28 @@ export function CheckRunsList(props: CheckRunsListProps) {
       <For each={sortedRuns}>
         {(check) => (
           <li class={styles.li}>
-            <a href={check.url} target="_blank">
-              <Flex gap={8}>
-                <CheckRunsIcon
-                  status={check.status}
-                  conclusion={check.conclusion}
-                />
-                <span>{check.name}</span>
-              </Flex>
-            </a>
+            <Show
+              when={check.details_url !== "undefined"}
+              fallback={
+                <Flex gap={8}>
+                  <CheckRunsIcon
+                    status={check.status}
+                    conclusion={check.conclusion}
+                  />
+                  <span>{check.name}</span>
+                </Flex>
+              }
+            >
+              <a href={check.details_url!} target="_blank">
+                <Flex gap={8}>
+                  <CheckRunsIcon
+                    status={check.status}
+                    conclusion={check.conclusion}
+                  />
+                  <span>{check.name}</span>
+                </Flex>
+              </a>
+            </Show>
           </li>
         )}
       </For>
