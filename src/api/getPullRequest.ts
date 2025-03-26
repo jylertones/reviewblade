@@ -33,7 +33,10 @@ import { fiveMinutesMs } from "~/utils/staleTimes";
 //   return (await response.json()) as PullRequestResponse;
 // }
 
-export function getPullRequest(params: PullRequestRequest) {
+export function getPullRequest(
+  params: PullRequestRequest,
+  queryParams?: { enabled: boolean },
+) {
   return createQuery<PullRequestResponse>(() => ({
     queryKey: [QueryKeys.PULL_REQUEST, params],
     queryFn: async () =>
@@ -41,6 +44,7 @@ export function getPullRequest(params: PullRequestRequest) {
         ...params,
         mediaType: { format: "full" },
       }),
+    enabled: queryParams?.enabled,
     staleTime: fiveMinutesMs,
   }));
 }

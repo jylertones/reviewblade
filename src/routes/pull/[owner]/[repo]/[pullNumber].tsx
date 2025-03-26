@@ -45,11 +45,16 @@ const statusMap: Record<
 
 export default function PullRequestDetail() {
   const params = useParams();
-  const pullRequestQuery = getPullRequest({
-    owner: params.owner,
-    repo: params.repo,
-    pull_number: parseInt(params.pullNumber),
-  });
+  const pullRequestQuery = getPullRequest(
+    {
+      owner: params.owner,
+      repo: params.repo,
+      pull_number: parseInt(params.pullNumber),
+    },
+    {
+      enabled: Boolean(params.owner && params.repo && params.pullNumber),
+    },
+  );
   const checkRunsQuery = createMemo(() =>
     getCheckRuns(
       {
@@ -58,7 +63,9 @@ export default function PullRequestDetail() {
         ref: pullRequestQuery.data?.data.head.sha ?? "",
       },
       {
-        enabled: !!pullRequestQuery.data?.data.head.sha,
+        enabled: Boolean(
+          pullRequestQuery.data?.data.head.sha && params.owner && params.repo,
+        ),
       },
     ),
   );
