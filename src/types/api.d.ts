@@ -47,3 +47,8 @@ export type MergePullRequestRequest =
 export type MergePullRequestResponse =
   RestEndpointMethodTypes["pulls"]["merge"]["response"];
 export type MergePullRequestResult = MergePullRequestResponse["data"];
+
+export type RetryCheckRunRequest =
+  RestEndpointMethodTypes["checks"]["rerequestRun"]["parameters"];
+export type RetryCheckRunResponse =
+  RestEndpointMethodTypes["checks"]["rerequestRun"]["response"];

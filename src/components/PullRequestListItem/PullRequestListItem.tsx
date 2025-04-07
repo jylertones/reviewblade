@@ -2,7 +2,7 @@ import { createMemo, Show } from "solid-js";
 import { getPullReviews } from "~/api/getPullReviews";
 import { SearchPullRequestListItem } from "~/types/api";
 import { PullRequestApprovalState } from "~/types/states";
-import { getRepoPathFromPullRequest } from "~/utils/getRepoPathFromPullRequest";
+import { getRepoPathFromUrl } from "~/utils/getRepoPathFromUrl";
 import { Flex } from "../Flex/Flex";
 import MessageSquare from "lucide-solid/icons/message-square";
 import Github from "lucide-solid/icons/github";
@@ -17,7 +17,7 @@ type PullRequestListItemProps = {
 };
 
 export function PullRequestListItem(props: PullRequestListItemProps) {
-  const { owner, repo } = getRepoPathFromPullRequest(props.pullRequest);
+  const { owner, repo } = getRepoPathFromUrl(props.pullRequest.html_url);
   const pullReviewsQuery = getPullReviews({
     owner,
     repo,

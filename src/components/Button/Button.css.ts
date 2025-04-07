@@ -35,9 +35,9 @@ export const variantVariants = styleVariants({
     },
   },
   icon: {
-    inlineSize: "2rem",
-    blockSize: "2rem",
-    padding: "0.5rem",
+    inlineSize: "1.25rem",
+    blockSize: "1.25rem",
+    padding: "0.25rem",
     justifyContent: "center",
     border: 0,
     backgroundColor: "transparent",

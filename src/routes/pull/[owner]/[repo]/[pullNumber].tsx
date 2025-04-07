@@ -143,7 +143,7 @@ export default function PullRequestDetail() {
           <Flex direction="row" align="center" gap={2}>
             <pre class="branch-name">{pullRequest()?.head.ref}</pre>
             <Button onClick={handleCopy} variant="icon">
-              <Copy />
+              <Copy size={16} />
             </Button>
           </Flex>
           <ArrowRight />
