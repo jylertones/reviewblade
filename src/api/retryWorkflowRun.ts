@@ -1,6 +1,8 @@
 import {
   MergePullRequestRequest,
   MergePullRequestResponse,
+  RerunJobRequest,
+  RerunJobResponse,
   RetryCheckRunRequest,
   RetryCheckRunResponse,
 } from "~/types/api";
@@ -35,22 +37,20 @@ import { QueryKeys } from "~/utils/queryKeys";
 export function retryCheckRun() {
   const queryClient = useQueryClient();
 
-  return createMutation<RetryCheckRunResponse, Error, RetryCheckRunRequest>(
-    () => ({
-      mutationFn: async (params: RetryCheckRunRequest) =>
-        await octokit.rest.checks.rerequestRun(params),
+  return createMutation<RerunJobResponse, Error, RerunJobRequest>(() => ({
+    mutationFn: async (params: RetryCheckRunRequest) =>
+      await octokit.rest.actions.reRunWorkflowFailedJobs(params),
 
-      onSuccess: () => {
-        queryClient.invalidateQueries({
-          queryKey: [QueryKeys.CHECK_RUNS],
-        });
-        queryClient.invalidateQueries({
-          queryKey: [QueryKeys.PULL_REQUEST],
-        });
-        queryClient.invalidateQueries({
-          queryKey: [QueryKeys.SEARCH_PULL_REQUESTS],
-        });
-      },
-    }),
-  );
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.CHECK_RUNS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.PULL_REQUEST],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [QueryKeys.SEARCH_PULL_REQUESTS],
+      });
+    },
+  }));
 }
