@@ -48,7 +48,12 @@ export type MergePullRequestResponse =
   RestEndpointMethodTypes["pulls"]["merge"]["response"];
 export type MergePullRequestResult = MergePullRequestResponse["data"];
 
-export type RerunJobRequest =
+export type RerunWorkflowFailedJobsRequest =
+  RestEndpointMethodTypes["actions"]["reRunWorkflowFailedJobs"]["parameters"];
+export type RerunWorkflowFailedJobsResponse =
+  RestEndpointMethodTypes["actions"]["reRunWorkflowFailedJobs"]["response"];
+
+export type RerunWorkflowJobRequest =
   RestEndpointMethodTypes["actions"]["reRunJobForWorkflowRun"]["parameters"];
-export type RerunJobResponse =
+export type RerunWorkflowJobResponse =
   RestEndpointMethodTypes["actions"]["reRunJobForWorkflowRun"]["response"];

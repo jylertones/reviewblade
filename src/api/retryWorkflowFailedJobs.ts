@@ -1,12 +1,8 @@
-import {
-  MergePullRequestRequest,
-  MergePullRequestResponse,
-  RerunJobRequest,
-  RerunJobResponse,
-  RetryCheckRunRequest,
-  RetryCheckRunResponse,
-} from "~/types/api";
 import { createMutation, useQueryClient } from "@tanstack/solid-query";
+import {
+  RerunWorkflowFailedJobsRequest,
+  RerunWorkflowFailedJobsResponse,
+} from "~/types/api";
 import { octokit } from "~/utils/octokit";
 import { QueryKeys } from "~/utils/queryKeys";
 
@@ -34,11 +30,15 @@ import { QueryKeys } from "~/utils/queryKeys";
 //   return (await response.json()) as MergePullRequestResponse;
 // }
 
-export function retryCheckRun() {
+export function retryWorkflowFailedJobs() {
   const queryClient = useQueryClient();
 
-  return createMutation<RerunJobResponse, Error, RerunJobRequest>(() => ({
-    mutationFn: async (params: RetryCheckRunRequest) =>
+  return createMutation<
+    RerunWorkflowFailedJobsResponse,
+    Error,
+    RerunWorkflowFailedJobsRequest
+  >(() => ({
+    mutationFn: async (params: RerunWorkflowFailedJobsRequest) =>
       await octokit.rest.actions.reRunWorkflowFailedJobs(params),
 
     onSuccess: () => {

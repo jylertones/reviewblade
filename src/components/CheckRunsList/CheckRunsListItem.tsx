@@ -7,8 +7,9 @@ import { CheckRunsIcon } from "../CheckRunsIcon/CheckRunsIcon";
 import { Button } from "../Button/Button";
 import RefreshIcon from "lucide-solid/icons/refresh-cw";
 import { getRepoPathFromUrl } from "~/utils/getRepoPathFromUrl";
-import { retryCheckRun } from "~/api/retryWorkflowRun";
+import { retryWorkflowFailedJobs } from "~/api/retryWorkflowFailedJobs";
 import { getWorkflowRunIdFromCheckRun } from "~/utils/getWorkflowRunIdFromCheckRun";
+import { retryJob } from "~/api/retryJob";
 
 export type CheckRunsListItemProps = {
   check: CheckRun;
@@ -18,7 +19,7 @@ export function CheckRunsListItem({ check }: CheckRunsListItemProps) {
   const { repo, owner } = getRepoPathFromUrl(
     check.html_url ?? check.pull_requests[0].url,
   );
-  const retryCheckRunMutation = retryCheckRun();
+  const retryCheckRunMutation = retryJob();
 
   const isRetryableCheck = createMemo(() =>
     ["cancelled", "failure", "timed_out"].includes(check.conclusion ?? ""),
@@ -26,14 +27,8 @@ export function CheckRunsListItem({ check }: CheckRunsListItemProps) {
 
   async function handleRetry() {
     try {
-      const runId = getWorkflowRunIdFromCheckRun(check);
-      if (!runId) {
-        alert("No workflow run ID found");
-        return;
-      }
-
       await retryCheckRunMutation.mutateAsync({
-        job_id: runId,
+        job_id: check.id,
         repo,
         owner,
       });
