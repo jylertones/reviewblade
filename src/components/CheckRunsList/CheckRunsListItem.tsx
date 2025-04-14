@@ -57,7 +57,7 @@ export function CheckRunsListItem({ check }: CheckRunsListItemProps) {
           <a href={check.details_url!} target="_blank">
             {check.name}
           </a>
-          <Show when={isRetryableCheck}>
+          <Show when={isRetryableCheck()}>
             <Button variant="icon" onClick={handleRetry}>
               <RefreshIcon size={16} />
             </Button>
