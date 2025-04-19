@@ -33,9 +33,9 @@ export function ReviewFile(props: ReviewFileProps) {
         startLineNumber: Number(matches[2]),
         patch: "",
       });
-    } else if (acc[acc.length - 1].patch === "") {
+    } else if (acc.length > 0 && acc[acc.length - 1].patch === "") {
       acc[acc.length - 1].patch = line;
-    } else {
+    } else if (acc.length > 0) {
       acc[acc.length - 1].patch += "\n" + line;
     }
 
@@ -61,15 +61,17 @@ export function ReviewFile(props: ReviewFileProps) {
               <Show when={props.file.status === "added"}>added</Show>
               <Show when={props.file.status === "removed"}>removed</Show>
             </div>
-            <Button
-              variant="icon"
-              aria-controls={expandButtonId}
-              onClick={() => {
-                setExpanded(!expanded());
-              }}
-            >
-              <Dynamic component={ExpandedIcon()} />
-            </Button>
+            <Show when={chunks.length > 0}>
+              <Button
+                variant="icon"
+                aria-controls={expandButtonId}
+                onClick={() => {
+                  setExpanded(!expanded());
+                }}
+              >
+                <Dynamic component={ExpandedIcon()} />
+              </Button>
+            </Show>
           </Flex>
         </Flex>
 
