@@ -36,6 +36,7 @@ export const directionVariants = styleVariants({
 });
 
 export const justifyVariants = styleVariants({
+  normal: {},
   start: {
     justifyContent: "start",
   },
@@ -45,15 +46,15 @@ export const justifyVariants = styleVariants({
   center: {
     justifyContent: "center",
   },
-  spaceBetween: {
+  "space-between": {
     inlineSize: "100%",
     justifyContent: "space-between",
   },
-  spaceAround: {
+  "space-around": {
     inlineSize: "100%",
     justifyContent: "space-around",
   },
-  spaceEvenly: {
+  "space-evenly": {
     inlineSize: "100%",
     justifyContent: "space-evenly",
   },

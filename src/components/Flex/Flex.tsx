@@ -28,6 +28,7 @@ export function Flex(props: FlexProps) {
           props.align ?? (props.direction === "row" ? "center" : "start")
         ],
         styles.directionVariants[props.direction ?? "row"],
+        props.justify && styles.justifyVariants[props.justify],
         props["class"],
       )}
     >
