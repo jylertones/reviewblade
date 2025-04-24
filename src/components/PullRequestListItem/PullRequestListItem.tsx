@@ -51,6 +51,7 @@ export function PullRequestListItem(props: PullRequestListItemProps) {
           <A
             href={`/pull/${owner}/${repo}/${props.pullRequest.number}`}
             data-keyboard-focusable
+            data-github-link={props.pullRequest.html_url}
           >
             {props.pullRequest.title}
           </A>

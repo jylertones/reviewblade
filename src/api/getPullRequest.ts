@@ -1,5 +1,5 @@
 import { PullRequestRequest, PullRequestResponse } from "~/types/api";
-import { createQuery } from "@tanstack/solid-query";
+import { createQuery, keepPreviousData } from "@tanstack/solid-query";
 import { QueryKeys } from "~/utils/queryKeys";
 import { octokit } from "~/utils/octokit";
 import { fiveMinutesMs } from "~/utils/staleTimes";
@@ -46,5 +46,6 @@ export function getPullRequest(
       }),
     enabled: queryParams?.enabled,
     staleTime: fiveMinutesMs,
+    placeholderData: keepPreviousData,
   }));
 }

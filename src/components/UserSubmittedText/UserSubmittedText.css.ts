@@ -7,11 +7,11 @@ globalStyle(`${wrapper} a`, {
   textDecoration: "none",
 });
 
-globalStyle(`${this} p`, {
+globalStyle(`${wrapper} p`, {
   lineHeight: "1.4",
 });
 
-globalStyle(`${this} code`, {
+globalStyle(`${wrapper} code`, {
   backgroundColor: "var(--background-color-tertiary)",
   fontSize: "var(--font-body-size-2)",
   paddingInline: "0.25rem",
@@ -19,34 +19,38 @@ globalStyle(`${this} code`, {
   borderRadius: "var(--border-radius)",
 });
 
-globalStyle(`${this} pre`, {
+globalStyle(`${wrapper} pre`, {
   backgroundColor: "var(--background-color-tertiary)",
   padding: "0.5rem",
   borderRadius: "var(--border-radius)",
 });
 
-globalStyle(`${this} pre > code`, {
+globalStyle(`${wrapper} pre > code`, {
   backgroundColor: "transparent",
   padding: 0,
   borderRadius: 0,
 });
 
-globalStyle(`${this} .contains-task-list`, {
+globalStyle(`${wrapper} .contains-task-list`, {
   listStyle: "none",
   paddingInlineStart: "1rem",
 });
 
-globalStyle(`${this} .width-fit`, {
+globalStyle(`${wrapper} .width-fit`, {
   maxInlineSize: "100%",
 });
 
-globalStyle(`${this} .details-reset`, {
+globalStyle(`${wrapper} .details-reset`, {
   backgroundColor: "var(--background-color-secondary)",
   border: "1px solid var(--border-color)",
   borderRadius: "var(--border-radius)",
   padding: "1rem",
 });
 
-globalStyle(`${this} summary`, {
+globalStyle(`${wrapper} summary`, {
   paddingBlockEnd: "0.5rem",
+});
+
+globalStyle(`${wrapper} video`, {
+  maxWidth: "100%",
 });

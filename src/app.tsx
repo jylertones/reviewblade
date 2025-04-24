@@ -11,7 +11,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <MetaProvider>
-        <Router root={(props) => <Layout {...props} />}>
+        <Router root={Layout}>
           <FileRoutes />
         </Router>
       </MetaProvider>
